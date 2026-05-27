@@ -93,6 +93,7 @@
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
+      max-width: 100%;
     }
 
     .yellow-bar {
@@ -171,6 +172,8 @@
       font-weight: 900;
       line-height: 1.22;
       margin-bottom: 6px;
+      word-break: normal;
+      overflow-wrap: anywhere;
     }
 
     .hero-sub {
@@ -1232,7 +1235,8 @@
     ─────────────────────────────────────────────── */
     document.addEventListener('DOMContentLoaded', () => {
       const p = new URLSearchParams(window.location.search);
-      const condo = p.get('c') || p.get('condo') || '';
+      const condoRaw = p.get('c') || p.get('condo') || '';
+      const condo = decodeParam(condoRaw);
       const prod = p.get('p') || p.get('produto') || 'encomendas';
       const preco = p.get('preco') || p.get('v') || '';
       const yt = p.get('yt') || '';
@@ -1308,6 +1312,14 @@
 
     function escHtml(s) {
       return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+
+    function decodeParam(value) {
+      try {
+        return decodeURIComponent(value);
+      } catch {
+        return value;
+      }
     }
 
     /* ─────────────────────────────────────────────
