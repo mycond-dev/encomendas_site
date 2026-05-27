@@ -394,45 +394,7 @@
       margin: 10px 0 16px;
     }
 
-    function fetchRealPollResults() {
-      const condominio=window._condo || '';
-      if ( !condominio) return;
 
-      const callbackName='mycondPollCallback_'+Date.now();
-
-      window[callbackName]=function(data) {
-        renderRealPoll(data);
-        delete window[callbackName];
-        script.remove();
-      }
-
-      ;
-
-      const script=document.createElement('script');
-      script.src=FORM_ENDPOINT+'?action=resultado'
-      +'&condominio='+encodeURIComponent(condominio)+'&callback='+callbackName;
-
-      document.body.appendChild(script);
-    }
-
-    function renderRealPoll(data) {
-      const total=Number(data.total || 0);
-      const yes=Number(data.yes || 0);
-      const no=Number(data.no || 0);
-      const pct=Number(data.pctYes || 0);
-
-      document.getElementById('pollBar').style.width=pct+'%';
-
-      if (total > 0) {
-        document.getElementById('yesPct').textContent=pct+'% apoiam';
-        document.getElementById('totalStat').textContent=total+(total===1 ? ' voto' : ' votos');
-      }
-
-      else {
-        document.getElementById('yesPct').textContent='0 votos';
-        document.getElementById('totalStat').textContent='Seja o primeiro!';
-      }
-    }
 
     /* Barra de resultado — sempre visível */
     .poll-result {
@@ -1112,6 +1074,7 @@
           <input type="hidden" name="condominio" id="hCondo" />
           <input type="hidden" name="produto" id="hProd" />
           <input type="hidden" name="voto" id="hVoto" value="" />
+          <input type="hidden" name="preco_unidade" id="hPreco" />
           <input type="hidden" name="utm_source" id="hSrc" />
           <input type="hidden" name="utm_medium" id="hMed" />
           <input type="hidden" name="utm_campaign" id="hCamp" />
@@ -1288,6 +1251,7 @@
       // Hidden fields
       document.getElementById('hCondo').value = condo;
       document.getElementById('hProd').value = prod;
+      document.getElementById('hPreco').value = preco;
       document.getElementById('hSrc').value = p.get('utm_source') || '';
       document.getElementById('hMed').value = p.get('utm_medium') || '';
       document.getElementById('hCamp').value = p.get('utm_campaign') || '';
@@ -1419,6 +1383,49 @@
       }
     }
 
+    function fetchRealPollResults() {
+      const condominio = window._condo || '';
+      if (!condominio) return;
+
+      const callbackName = 'mycondPollCallback_' + Date.now();
+      const script = document.createElement('script');
+
+      window[callbackName] = function (data) {
+        renderRealPoll(data);
+        delete window[callbackName];
+        script.remove();
+      };
+
+      script.onerror = function () {
+        console.warn('Não foi possível buscar o resultado da enquete.');
+        delete window[callbackName];
+        script.remove();
+      };
+
+      script.src = FORM_ENDPOINT
+        + '?action=resultado'
+        + '&condominio=' + encodeURIComponent(condominio)
+        + '&callback=' + callbackName
+        + '&cache=' + Date.now();
+
+      document.body.appendChild(script);
+    }
+
+    function renderRealPoll(data) {
+      const total = Number(data.total || 0);
+      const pct = Number(data.pctYes || 0);
+
+      document.getElementById('pollBar').style.width = pct + '%';
+
+      if (total > 0) {
+        document.getElementById('yesPct').textContent = pct + '% apoiam';
+        document.getElementById('totalStat').textContent = total + (total === 1 ? ' voto' : ' votos');
+      } else {
+        document.getElementById('yesPct').textContent = '0 votos';
+        document.getElementById('totalStat').textContent = 'Seja o primeiro!';
+      }
+    }
+
     /* ─────────────────────────────────────────────
        SELEÇÃO DE VOTO (toggle antes de enviar)
     ─────────────────────────────────────────────── */
@@ -1492,6 +1499,10 @@
         });
 
         showThanks(true);
+
+        setTimeout(() => {
+          fetchRealPollResults();
+        }, 2000);
       } catch {
         btn.disabled = false;
         btn.innerHTML = 'Tentar novamente';
