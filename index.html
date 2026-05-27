@@ -1,590 +1,1360 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Consulta aos Moradores — MyCond</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap"
+    rel="stylesheet" />
 
   <style>
     :root {
-      --yellow:      #FDC600;
+      --yellow: #FDC600;
       --yellow-dark: #D4A500;
-      --yellow-bg:   #FFF8D6;
-      --navy:        #1B1F36;
-      --navy-2:      #252A4A;
-      --navy-3:      #2E3460;
-      --gray:        #9B9A9A;
-      --gray-l:      #E8E8E8;
-      --gray-ll:     #F5F5F5;
-      --white:       #FFFFFF;
-      --green:       #22C55E;
-      --green-dark:  #16A34A;
-      --green-bg:    #DCFCE7;
+      --yellow-bg: #FFF8D6;
+      --navy: #1B1F36;
+      --navy-2: #252A4A;
+      --navy-3: #2E3460;
+      --gray: #9B9A9A;
+      --gray-l: #E8E8E8;
+      --gray-ll: #F5F5F5;
+      --white: #FFFFFF;
+      --green: #22C55E;
+      --green-dark: #16A34A;
+      --green-bg: #DCFCE7;
       --font: 'Montserrat', sans-serif;
-      --r-sm:4px; --r-md:8px; --r-lg:16px; --r-xl:24px; --r-pill:999px;
-      --s-sm: 0 2px 8px rgba(27,31,54,.10);
-      --s-md: 0 4px 16px rgba(27,31,54,.15);
+      --r-sm: 4px;
+      --r-md: 8px;
+      --r-lg: 16px;
+      --r-xl: 24px;
+      --r-pill: 999px;
+      --s-sm: 0 2px 8px rgba(27, 31, 54, .10);
+      --s-md: 0 4px 16px rgba(27, 31, 54, .15);
       --t: 150ms ease;
     }
 
-    *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
-    html { scroll-behavior:smooth; }
-    body { font-family:var(--font); background:#ECEEF5; color:var(--navy); -webkit-font-smoothing:antialiased; }
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font);
+      background: #ECEEF5;
+      color: var(--navy);
+      -webkit-font-smoothing: antialiased;
+    }
 
     /* ── HEADER ── */
     .hdr {
-      background:var(--navy); padding:13px 24px;
-      display:flex; align-items:center; gap:14px;
-      position:sticky; top:0; z-index:100;
-      box-shadow:0 2px 16px rgba(0,0,0,.28);
+      background: var(--navy);
+      padding: 13px 24px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 16px rgba(0, 0, 0, .28);
     }
-    .hdr-logo { display:flex; align-items:center; text-decoration:none; }
-    .hdr-logo img { height:30px; width:auto; display:block; }
-    .hdr-sep { width:1px; height:22px; background:var(--navy-3); flex-shrink:0; }
-    .hdr-condo { font-size:13px; font-weight:600; color:#7A8098; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
-    .yellow-bar { height:4px; background:var(--yellow); }
+
+    .hdr-logo {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+    }
+
+    .hdr-logo img {
+      height: 30px;
+      width: auto;
+      display: block;
+    }
+
+    .hdr-sep {
+      width: 1px;
+      height: 22px;
+      background: var(--navy-3);
+      flex-shrink: 0;
+    }
+
+    .hdr-condo {
+      font-size: 13px;
+      font-weight: 600;
+      color: #7A8098;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .yellow-bar {
+      height: 4px;
+      background: var(--yellow);
+    }
 
     /* ── LAYOUT ── */
-    .wrap { max-width:1080px; margin:0 auto; padding:20px 16px 56px; }
+    .wrap {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 20px 16px 56px;
+    }
 
-    @media(min-width:860px){
-      .wrap { padding:32px 28px 64px; display:flex; gap:24px; align-items:flex-start; }
-      .col-left  { flex:1; min-width:0; }
-      .col-right { width:380px; flex-shrink:0; position:sticky; top:76px; }
+    @media(min-width:860px) {
+      .wrap {
+        padding: 32px 28px 64px;
+        display: flex;
+        gap: 24px;
+        align-items: flex-start;
+      }
+
+      .col-left {
+        flex: 1;
+        min-width: 0;
+      }
+
+      .col-right {
+        width: 380px;
+        flex-shrink: 0;
+        position: sticky;
+        top: 76px;
+      }
     }
 
     /* ── CARD ── */
-    .card { background:var(--white); border-radius:var(--r-xl); box-shadow:var(--s-sm); overflow:hidden; margin-bottom:16px; }
+    .card {
+      background: var(--white);
+      border-radius: var(--r-xl);
+      box-shadow: var(--s-sm);
+      overflow: hidden;
+      margin-bottom: 16px;
+    }
 
     /* ── HERO ── */
     .tag {
-      display:inline-flex; align-items:center; gap:6px;
-      background:var(--yellow-bg); color:var(--navy);
-      font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.08em;
-      padding:5px 12px; border-radius:var(--r-pill); margin:20px 20px 0;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--yellow-bg);
+      color: var(--navy);
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      padding: 5px 12px;
+      border-radius: var(--r-pill);
+      margin: 20px 20px 0;
     }
-    .hero-body { padding:14px 20px 0; }
-    .condo-eyebrow { font-size:11px; font-weight:700; color:var(--yellow-dark); text-transform:uppercase; letter-spacing:.07em; margin-bottom:5px; }
-    .hero-title { font-size:clamp(18px,3.5vw,24px); font-weight:900; line-height:1.22; margin-bottom:6px; }
-    .hero-sub   { font-size:14px; font-weight:500; color:var(--gray); line-height:1.55; margin-bottom:18px; }
-    .benefits   { list-style:none; padding:0 20px 20px; display:flex; flex-direction:column; gap:11px; }
-    .benefit    { display:flex; align-items:flex-start; gap:10px; font-size:14px; font-weight:500; line-height:1.4; }
-    .chk        { flex-shrink:0; width:22px; height:22px; background:var(--yellow); border-radius:var(--r-sm); display:flex; align-items:center; justify-content:center; margin-top:1px; }
-    .chk svg    { width:12px; height:12px; stroke:var(--navy); stroke-width:3; fill:none; }
+
+    .hero-body {
+      padding: 14px 20px 0;
+    }
+
+    .condo-eyebrow {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--yellow-dark);
+      text-transform: uppercase;
+      letter-spacing: .07em;
+      margin-bottom: 5px;
+    }
+
+    .hero-title {
+      font-size: clamp(18px, 3.5vw, 24px);
+      font-weight: 900;
+      line-height: 1.22;
+      margin-bottom: 6px;
+    }
+
+    .hero-sub {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--gray);
+      line-height: 1.55;
+      margin-bottom: 18px;
+    }
+
+    .benefits {
+      list-style: none;
+      padding: 0 20px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 11px;
+    }
+
+    .benefit {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 1.4;
+    }
+
+    .chk {
+      flex-shrink: 0;
+      width: 22px;
+      height: 22px;
+      background: var(--yellow);
+      border-radius: var(--r-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 1px;
+    }
+
+    .chk svg {
+      width: 12px;
+      height: 12px;
+      stroke: var(--navy);
+      stroke-width: 3;
+      fill: none;
+    }
 
     /* ── VÍDEO ── */
-    .video-card { padding:16px; }
-    .sec-label  { font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.1em; color:var(--gray); margin-bottom:10px; display:flex; align-items:center; gap:6px; }
-    .sec-label::before { content:''; display:inline-block; width:12px; height:3px; background:var(--yellow); border-radius:2px; }
+    .video-card {
+      padding: 16px;
+    }
+
+    .sec-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: var(--gray);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .sec-label::before {
+      content: '';
+      display: inline-block;
+      width: 12px;
+      height: 3px;
+      background: var(--yellow);
+      border-radius: 2px;
+    }
 
     /* Thumbnail clicável — iframe carrega só ao clicar (evita Erro 153) */
     .vid-thumb {
-      position:relative; width:100%;
-      padding-bottom:56.25%; border-radius:var(--r-lg); overflow:hidden;
-      background:var(--navy); cursor:pointer;
+      position: relative;
+      width: 100%;
+      padding-bottom: 56.25%;
+      border-radius: var(--r-lg);
+      overflow: hidden;
+      background: var(--navy);
+      cursor: pointer;
     }
+
     .vid-thumb img {
-      position:absolute; top:0; left:0; width:100%; height:100%;
-      object-fit:cover; display:block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
     }
+
     .vid-thumb .play-overlay {
-      position:absolute; top:0; left:0; width:100%; height:100%;
-      display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px;
-      background:rgba(27,31,54,.45);
-      transition:background var(--t);
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: rgba(27, 31, 54, .45);
+      transition: background var(--t);
     }
-    .vid-thumb:hover .play-overlay { background:rgba(27,31,54,.30); }
+
+    .vid-thumb:hover .play-overlay {
+      background: rgba(27, 31, 54, .30);
+    }
+
     .play-btn-circle {
-      width:60px; height:60px; background:var(--yellow); border-radius:50%;
-      display:flex; align-items:center; justify-content:center;
-      box-shadow:0 4px 20px rgba(253,198,0,.5);
-      transition:transform var(--t);
+      width: 60px;
+      height: 60px;
+      background: var(--yellow);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 20px rgba(253, 198, 0, .5);
+      transition: transform var(--t);
     }
-    .vid-thumb:hover .play-btn-circle { transform:scale(1.08); }
-    .play-btn-circle svg { width:22px; height:22px; fill:var(--navy); margin-left:4px; }
-    .play-overlay p { font-size:13px; font-weight:600; color:var(--white); }
-    .vid-wrap { position:relative; width:100%; padding-bottom:56.25%; border-radius:var(--r-lg); overflow:hidden; }
-    .vid-wrap iframe { position:absolute; top:0; left:0; width:100%; height:100%; border:none; }
+
+    .vid-thumb:hover .play-btn-circle {
+      transform: scale(1.08);
+    }
+
+    .play-btn-circle svg {
+      width: 22px;
+      height: 22px;
+      fill: var(--navy);
+      margin-left: 4px;
+    }
+
+    .play-overlay p {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--white);
+    }
+
+    .vid-wrap {
+      position: relative;
+      width: 100%;
+      padding-bottom: 56.25%;
+      border-radius: var(--r-lg);
+      overflow: hidden;
+    }
+
+    .vid-wrap iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
 
     /* ── PREÇO ── */
-    .price-card { background:var(--navy); border-radius:var(--r-xl); padding:15px 20px; display:flex; align-items:center; justify-content:space-between; gap:14px; margin-bottom:16px; box-shadow:var(--s-sm); }
-    .price-num  { display:flex; align-items:baseline; gap:1px; }
-    .price-cur  { font-size:15px; font-weight:800; color:var(--yellow); }
-    .price-val  { font-size:34px; font-weight:900; color:var(--yellow); line-height:1; }
-    .price-unit { font-size:11px; font-weight:600; color:#7A8098; margin-top:3px; }
-    .price-desc { font-size:12px; font-weight:500; color:#7A8098; text-align:right; line-height:1.4; }
-    .price-desc strong { color:var(--yellow); font-weight:700; }
+    .price-card {
+      background: var(--navy);
+      border-radius: var(--r-xl);
+      padding: 15px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      margin-bottom: 16px;
+      box-shadow: var(--s-sm);
+    }
+
+    .price-num {
+      display: flex;
+      align-items: baseline;
+      gap: 1px;
+    }
+
+    .price-cur {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--yellow);
+    }
+
+    .price-val {
+      font-size: 34px;
+      font-weight: 900;
+      color: var(--yellow);
+      line-height: 1;
+    }
+
+    .price-unit {
+      font-size: 11px;
+      font-weight: 600;
+      color: #7A8098;
+      margin-top: 3px;
+    }
+
+    .price-desc {
+      font-size: 12px;
+      font-weight: 500;
+      color: #7A8098;
+      text-align: right;
+      line-height: 1.4;
+    }
+
+    .price-desc strong {
+      color: var(--yellow);
+      font-weight: 700;
+    }
 
     /* ── POLL ── */
-    .poll-card { padding:20px; }
-    .poll-q    { font-size:16px; font-weight:800; line-height:1.3; margin:10px 0 16px; }
+    .poll-card {
+      padding: 20px;
+    }
+
+    .poll-q {
+      font-size: 16px;
+      font-weight: 800;
+      line-height: 1.3;
+      margin: 10px 0 16px;
+    }
+
+    function fetchRealPollResults() {
+      const condominio=window._condo || '';
+      if ( !condominio) return;
+
+      const callbackName='mycondPollCallback_'+Date.now();
+
+      window[callbackName]=function(data) {
+        renderRealPoll(data);
+        delete window[callbackName];
+        script.remove();
+      }
+
+      ;
+
+      const script=document.createElement('script');
+      script.src=FORM_ENDPOINT+'?action=resultado'
+      +'&condominio='+encodeURIComponent(condominio)+'&callback='+callbackName;
+
+      document.body.appendChild(script);
+    }
+
+    function renderRealPoll(data) {
+      const total=Number(data.total || 0);
+      const yes=Number(data.yes || 0);
+      const no=Number(data.no || 0);
+      const pct=Number(data.pctYes || 0);
+
+      document.getElementById('pollBar').style.width=pct+'%';
+
+      if (total > 0) {
+        document.getElementById('yesPct').textContent=pct+'% apoiam';
+        document.getElementById('totalStat').textContent=total+(total===1 ? ' voto' : ' votos');
+      }
+
+      else {
+        document.getElementById('yesPct').textContent='0 votos';
+        document.getElementById('totalStat').textContent='Seja o primeiro!';
+      }
+    }
 
     /* Barra de resultado — sempre visível */
-    .poll-result { margin-bottom:16px; }
-    .poll-bar-wrap { background:var(--gray-ll); border-radius:var(--r-pill); height:10px; overflow:hidden; margin-bottom:7px; }
-    .poll-bar-yes  { height:100%; background:var(--green); border-radius:var(--r-pill); width:0%; transition:width .7s ease; }
-    .poll-stats    { display:flex; justify-content:space-between; font-size:12px; font-weight:600; }
-    .stat-yes      { color:var(--green); font-weight:800; display:flex; align-items:center; gap:4px; }
-    .stat-yes svg  { width:13px; height:13px; stroke:var(--green); fill:none; stroke-width:2.5; }
-    .stat-total    { color:var(--gray); }
+    .poll-result {
+      margin-bottom: 16px;
+    }
+
+    .poll-bar-wrap {
+      background: var(--gray-ll);
+      border-radius: var(--r-pill);
+      height: 10px;
+      overflow: hidden;
+      margin-bottom: 7px;
+    }
+
+    .poll-bar-yes {
+      height: 100%;
+      background: var(--green);
+      border-radius: var(--r-pill);
+      width: 0%;
+      transition: width .7s ease;
+    }
+
+    .poll-stats {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .stat-yes {
+      color: var(--green);
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .stat-yes svg {
+      width: 13px;
+      height: 13px;
+      stroke: var(--green);
+      fill: none;
+      stroke-width: 2.5;
+    }
+
+    .stat-total {
+      color: var(--gray);
+    }
 
     /* Botões de voto */
-    .poll-btns { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+    .poll-btns {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
 
     .pbtn {
-      border:2px solid transparent; border-radius:var(--r-lg);
-      padding:13px 8px;
-      font-family:var(--font); font-size:12px; font-weight:700;
-      cursor:pointer; transition:all var(--t);
-      display:flex; align-items:center; justify-content:center; gap:6px;
-      line-height:1.3; text-align:center;
+      border: 2px solid transparent;
+      border-radius: var(--r-lg);
+      padding: 13px 8px;
+      font-family: var(--font);
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all var(--t);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      line-height: 1.3;
+      text-align: center;
     }
-    .pbtn svg { width:16px; height:16px; fill:none; stroke:currentColor; stroke-width:2.5; stroke-linecap:round; stroke-linejoin:round; flex-shrink:0; }
+
+    .pbtn svg {
+      width: 16px;
+      height: 16px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      flex-shrink: 0;
+    }
 
     /* Estado padrão */
-    .pbtn-yes { background:var(--gray-ll); color:var(--gray); border-color:var(--gray-l); }
-    .pbtn-no  { background:var(--gray-ll); color:var(--gray); border-color:var(--gray-l); }
+    .pbtn-yes {
+      background: var(--gray-ll);
+      color: var(--gray);
+      border-color: var(--gray-l);
+    }
+
+    .pbtn-no {
+      background: var(--gray-ll);
+      color: var(--gray);
+      border-color: var(--gray-l);
+    }
 
     /* Estado selecionado */
-    .pbtn-yes.selected { background:var(--green); color:var(--white); border-color:var(--green); box-shadow:0 4px 14px rgba(34,197,94,.3); }
-    .pbtn-no.selected  { background:var(--navy);  color:var(--white); border-color:var(--navy); }
+    .pbtn-yes.selected {
+      background: var(--green);
+      color: var(--white);
+      border-color: var(--green);
+      box-shadow: 0 4px 14px rgba(34, 197, 94, .3);
+    }
+
+    .pbtn-no.selected {
+      background: var(--navy);
+      color: var(--white);
+      border-color: var(--navy);
+    }
 
     /* Hover quando não selecionado */
-    .pbtn-yes:not(.selected):hover { background:var(--green-bg); color:var(--green-dark); border-color:var(--green); }
-    .pbtn-no:not(.selected):hover  { background:var(--gray-l);   color:var(--navy); }
+    .pbtn-yes:not(.selected):hover {
+      background: var(--green-bg);
+      color: var(--green-dark);
+      border-color: var(--green);
+    }
 
-    .pbtn:disabled { cursor:not-allowed; opacity:.5; }
+    .pbtn-no:not(.selected):hover {
+      background: var(--gray-l);
+      color: var(--navy);
+    }
+
+    .pbtn:disabled {
+      cursor: not-allowed;
+      opacity: .5;
+    }
 
     /* Bloco de apoio */
-    .support-blk { background:var(--yellow-bg); border-left:3px solid var(--yellow); border-radius:0 var(--r-md) var(--r-md) 0; padding:12px 14px; font-size:13px; font-weight:500; color:var(--navy); line-height:1.55; margin-bottom:16px; }
-    .support-blk strong { font-weight:700; }
+    .support-blk {
+      background: var(--yellow-bg);
+      border-left: 3px solid var(--yellow);
+      border-radius: 0 var(--r-md) var(--r-md) 0;
+      padding: 12px 14px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--navy);
+      line-height: 1.55;
+      margin-bottom: 16px;
+    }
+
+    .support-blk strong {
+      font-weight: 700;
+    }
 
     /* ── FORMULÁRIO (aparece ao selecionar qualquer opção) ── */
-    .form-card { padding:20px; display:none; }
-    .form-card.show { display:block; animation:up .3s ease; }
+    .form-card {
+      padding: 20px;
+      display: none;
+    }
 
-    @keyframes up { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
+    .form-card.show {
+      display: block;
+      animation: up .3s ease;
+    }
 
-    .form-hdr       { display:flex; align-items:center; gap:10px; margin-bottom:16px; }
-    .form-ico       { width:38px; height:38px; background:var(--yellow); border-radius:var(--r-md); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
-    .form-ico svg   { width:18px; height:18px; stroke:var(--navy); fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
-    .form-hdr-text h3 { font-size:14px; font-weight:800; color:var(--navy); }
-    .form-hdr-text p  { font-size:12px; font-weight:500; color:var(--gray); margin-top:2px; line-height:1.4; }
+    @keyframes up {
+      from {
+        opacity: 0;
+        transform: translateY(10px)
+      }
 
-    .fg { margin-bottom:12px; }
-    .fl { display:block; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:var(--gray); margin-bottom:5px; }
-    .fi { width:100%; padding:11px 13px; border:1.5px solid var(--gray-l); border-radius:var(--r-md); font-family:var(--font); font-size:14px; font-weight:500; color:var(--navy); background:var(--white); transition:border-color var(--t); outline:none; -webkit-appearance:none; }
-    .fi:focus { border-color:var(--yellow); box-shadow:0 0 0 3px rgba(253,198,0,.15); }
-    .fi::placeholder { color:var(--gray); font-weight:400; }
+      to {
+        opacity: 1;
+        transform: translateY(0)
+      }
+    }
 
-    .row2 { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+    .form-hdr {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .form-ico {
+      width: 38px;
+      height: 38px;
+      background: var(--yellow);
+      border-radius: var(--r-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .form-ico svg {
+      width: 18px;
+      height: 18px;
+      stroke: var(--navy);
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .form-hdr-text h3 {
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--navy);
+    }
+
+    .form-hdr-text p {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--gray);
+      margin-top: 2px;
+      line-height: 1.4;
+    }
+
+    .fg {
+      margin-bottom: 12px;
+    }
+
+    .fl {
+      display: block;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: var(--gray);
+      margin-bottom: 5px;
+    }
+
+    .fi {
+      width: 100%;
+      padding: 11px 13px;
+      border: 1.5px solid var(--gray-l);
+      border-radius: var(--r-md);
+      font-family: var(--font);
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--navy);
+      background: var(--white);
+      transition: border-color var(--t);
+      outline: none;
+      -webkit-appearance: none;
+    }
+
+    .fi:focus {
+      border-color: var(--yellow);
+      box-shadow: 0 0 0 3px rgba(253, 198, 0, .15);
+    }
+
+    .fi::placeholder {
+      color: var(--gray);
+      font-weight: 400;
+    }
+
+    .row2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
 
     /* Banner mostrando qual voto está selecionado */
     .vote-badge {
-      display:flex; align-items:center; gap:8px;
-      background:var(--gray-ll); border-radius:var(--r-md);
-      padding:9px 12px; margin-bottom:14px;
-      font-size:12px; font-weight:600; color:var(--gray);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--gray-ll);
+      border-radius: var(--r-md);
+      padding: 9px 12px;
+      margin-bottom: 14px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--gray);
     }
-    .vote-badge.yes { background:var(--green-bg); color:var(--green-dark); }
-    .vote-badge.no  { background:#F1F5F9; color:var(--navy-2); }
-    .vote-badge svg { width:15px; height:15px; fill:none; stroke:currentColor; stroke-width:2.5; flex-shrink:0; }
 
-    .btn-sub { width:100%; padding:14px; background:var(--navy); color:var(--white); border:none; border-radius:var(--r-lg); font-family:var(--font); font-size:13px; font-weight:700; text-transform:uppercase; letter-spacing:.07em; cursor:pointer; transition:all var(--t); display:flex; align-items:center; justify-content:center; gap:8px; margin-top:6px; }
-    .btn-sub svg { width:17px; height:17px; stroke:var(--yellow); fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
-    .btn-sub:hover { background:var(--navy-2); transform:translateY(-1px); box-shadow:var(--s-md); }
+    .vote-badge.yes {
+      background: var(--green-bg);
+      color: var(--green-dark);
+    }
 
-    .privacy { font-size:11px; color:var(--gray); text-align:center; margin-top:10px; line-height:1.5; }
+    .vote-badge.no {
+      background: #F1F5F9;
+      color: var(--navy-2);
+    }
+
+    .vote-badge svg {
+      width: 15px;
+      height: 15px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2.5;
+      flex-shrink: 0;
+    }
+
+    .btn-sub {
+      width: 100%;
+      padding: 14px;
+      background: var(--navy);
+      color: var(--white);
+      border: none;
+      border-radius: var(--r-lg);
+      font-family: var(--font);
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .07em;
+      cursor: pointer;
+      transition: all var(--t);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 6px;
+    }
+
+    .btn-sub svg {
+      width: 17px;
+      height: 17px;
+      stroke: var(--yellow);
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .btn-sub:hover {
+      background: var(--navy-2);
+      transform: translateY(-1px);
+      box-shadow: var(--s-md);
+    }
+
+    .privacy {
+      font-size: 11px;
+      color: var(--gray);
+      text-align: center;
+      margin-top: 10px;
+      line-height: 1.5;
+    }
 
     /* ── ESTADOS FINAIS ── */
-    .state { border-radius:var(--r-xl); padding:26px 20px; text-align:center; margin-bottom:16px; display:none; box-shadow:var(--s-sm); }
-    .state.show { display:block; animation:up .4s ease; }
+    .state {
+      border-radius: var(--r-xl);
+      padding: 26px 20px;
+      text-align: center;
+      margin-bottom: 16px;
+      display: none;
+      box-shadow: var(--s-sm);
+    }
 
-    .s-thanks { background:var(--navy); }
-    .s-ico { width:56px; height:56px; border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 14px; }
-    .s-ico svg { width:26px; height:26px; stroke-width:2.5; stroke-linecap:round; stroke-linejoin:round; fill:none; }
-    .s-thanks .s-ico { background:var(--yellow); }
-    .s-thanks .s-ico svg { stroke:var(--navy); }
-    .s-title { font-size:19px; font-weight:900; line-height:1.2; margin-bottom:8px; }
-    .s-thanks .s-title { color:var(--white); }
-    .s-thanks .s-title .em { color:var(--yellow); }
-    .s-text { font-size:14px; font-weight:500; line-height:1.55; }
-    .s-thanks .s-text { color:#7A8098; }
+    .state.show {
+      display: block;
+      animation: up .4s ease;
+    }
+
+    .s-thanks {
+      background: var(--navy);
+    }
+
+    .s-ico {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 14px;
+    }
+
+    .s-ico svg {
+      width: 26px;
+      height: 26px;
+      stroke-width: 2.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      fill: none;
+    }
+
+    .s-thanks .s-ico {
+      background: var(--yellow);
+    }
+
+    .s-thanks .s-ico svg {
+      stroke: var(--navy);
+    }
+
+    .s-title {
+      font-size: 19px;
+      font-weight: 900;
+      line-height: 1.2;
+      margin-bottom: 8px;
+    }
+
+    .s-thanks .s-title {
+      color: var(--white);
+    }
+
+    .s-thanks .s-title .em {
+      color: var(--yellow);
+    }
+
+    .s-text {
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 1.55;
+    }
+
+    .s-thanks .s-text {
+      color: #7A8098;
+    }
 
     /* ── COMPARTILHAR ── */
-    .share-area { margin-top:18px; padding-top:16px; border-top:1px solid var(--navy-3); display:flex; flex-direction:column; align-items:center; gap:10px; }
-    .share-label { font-size:12px; font-weight:600; color:#7A8098; }
-    .btn-wa { display:inline-flex; align-items:center; gap:8px; background:#25D366; color:#fff; border:none; border-radius:var(--r-pill); padding:11px 22px; font-family:var(--font); font-size:13px; font-weight:700; cursor:pointer; transition:all var(--t); box-shadow:0 3px 12px rgba(37,211,102,.35); }
-    .btn-wa:hover { background:#1EBD5A; transform:translateY(-1px); }
-    .btn-wa svg { width:18px; height:18px; fill:currentColor; flex-shrink:0; }
+    .share-area {
+      margin-top: 18px;
+      padding-top: 16px;
+      border-top: 1px solid var(--navy-3);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .share-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: #7A8098;
+    }
+
+    .btn-wa {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #25D366;
+      color: #fff;
+      border: none;
+      border-radius: var(--r-pill);
+      padding: 11px 22px;
+      font-family: var(--font);
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all var(--t);
+      box-shadow: 0 3px 12px rgba(37, 211, 102, .35);
+    }
+
+    .btn-wa:hover {
+      background: #1EBD5A;
+      transform: translateY(-1px);
+    }
+
+    .btn-wa svg {
+      width: 18px;
+      height: 18px;
+      fill: currentColor;
+      flex-shrink: 0;
+    }
 
     /* FAB */
-    .fab { position:fixed; bottom:20px; right:20px; z-index:200; display:flex; align-items:center; gap:8px; background:#25D366; color:#fff; border:none; border-radius:var(--r-pill); padding:12px 18px 12px 14px; font-family:var(--font); font-size:13px; font-weight:700; cursor:pointer; box-shadow:0 4px 18px rgba(37,211,102,.45); transition:all var(--t); }
-    .fab:hover { transform:translateY(-2px); }
-    .fab svg { width:20px; height:20px; fill:currentColor; flex-shrink:0; }
-    .fab.hidden { display:none !important; }
+    .fab {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #25D366;
+      color: #fff;
+      border: none;
+      border-radius: var(--r-pill);
+      padding: 12px 18px 12px 14px;
+      font-family: var(--font);
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 4px 18px rgba(37, 211, 102, .45);
+      transition: all var(--t);
+    }
+
+    .fab:hover {
+      transform: translateY(-2px);
+    }
+
+    .fab svg {
+      width: 20px;
+      height: 20px;
+      fill: currentColor;
+      flex-shrink: 0;
+    }
+
+    .fab.hidden {
+      display: none !important;
+    }
 
     /* Proof + footer */
-    .proof { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin:4px 0 8px; }
-    .proof-pill { display:inline-flex; align-items:center; gap:5px; background:var(--white); border:1px solid var(--gray-l); border-radius:var(--r-pill); padding:6px 13px; font-size:12px; font-weight:600; color:var(--navy); box-shadow:var(--s-sm); }
-    .dot { width:6px; height:6px; background:var(--yellow); border-radius:50%; }
-    .footer { text-align:center; padding:6px; font-size:11px; font-weight:700; color:var(--gray); }
-    .footer span { color:var(--navy); }
+    .proof {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+      margin: 4px 0 8px;
+    }
 
-    @media(max-width:400px){
-      .row2 { grid-template-columns:1fr; }
-      .poll-btns { grid-template-columns:1fr; }
-      .fab span { display:none; }
-      .fab { padding:13px; border-radius:50%; }
+    .proof-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: var(--white);
+      border: 1px solid var(--gray-l);
+      border-radius: var(--r-pill);
+      padding: 6px 13px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--navy);
+      box-shadow: var(--s-sm);
+    }
+
+    .dot {
+      width: 6px;
+      height: 6px;
+      background: var(--yellow);
+      border-radius: 50%;
+    }
+
+    .footer {
+      text-align: center;
+      padding: 6px;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--gray);
+    }
+
+    .footer span {
+      color: var(--navy);
+    }
+
+    @media(max-width:400px) {
+      .row2 {
+        grid-template-columns: 1fr;
+      }
+
+      .poll-btns {
+        grid-template-columns: 1fr;
+      }
+
+      .fab span {
+        display: none;
+      }
+
+      .fab {
+        padding: 13px;
+        border-radius: 50%;
+      }
     }
   </style>
 </head>
+
 <body>
 
-<!-- HEADER -->
-<div class="hdr">
-  <a href="https://mycond.com.br" target="_blank" class="hdr-logo">
-    <!--
+  <!-- HEADER -->
+  <div class="hdr">
+    <a href="https://mycond.com.br" target="_blank" class="hdr-logo">
+      <!--
       LOGO: coloque o arquivo mycond-logo-h.png na mesma pasta do HTML no GitHub.
       Ou passe via URL: ?logo=https://seusite.com/logo.png
       O JavaScript abaixo lida com ambos os casos.
     -->
-    <!-- Nome do arquivo: "Logo Branca e Amarela vazada.png" (na raiz do repo) -->
-    <img id="logoImg" src="Logo%20Branca%20e%20Amarela%20vazada.png" alt="MyCond" height="30"
-         onerror="this.style.display='none'; this.onerror=null;" />
-  </a>
-  <div class="hdr-sep"></div>
-  <span class="hdr-condo" id="condoName">Consulta aos Moradores</span>
-</div>
-<div class="yellow-bar"></div>
-
-<!-- CONTEÚDO -->
-<div class="wrap">
-
-  <!-- COLUNA ESQUERDA -->
-  <div class="col-left">
-
-    <!-- HERO -->
-    <div class="card">
-      <div class="tag">
-        <span id="prodIcon">📦</span>
-        <span id="prodTag">Encomendas no condomínio</span>
-      </div>
-      <div class="hero-body">
-        <p class="condo-eyebrow" id="condoEyebrow" style="display:none"></p>
-        <h1 class="hero-title"  id="heroTitle"></h1>
-        <p class="hero-sub"     id="heroSub"></p>
-      </div>
-      <ul class="benefits" id="benefitsList"></ul>
-    </div>
-
-    <!-- VÍDEO -->
-    <div class="card video-card">
-      <p class="sec-label">Veja como funciona</p>
-      <div id="vidContainer"></div>
-    </div>
-
-    <!-- PREÇO -->
-    <div class="price-card">
-      <div>
-        <div class="price-num">
-          <span class="price-cur">R$</span>
-          <span class="price-val" id="priceVal">0,99</span>
-        </div>
-        <div class="price-unit" id="priceUnit">por unidade / mês</div>
-      </div>
-      <div class="price-desc" id="priceDesc">menos que <strong>1 café</strong><br>por morador</div>
-    </div>
-
+      <!-- Nome do arquivo: "Logo Branca e Amarela vazada.png" (na raiz do repo) -->
+      <img id="logoImg" src="Logo%20Branca%20e%20Amarela%20vazada.png" alt="MyCond" height="30"
+        onerror="this.style.display='none'; this.onerror=null;" />
+    </a>
+    <div class="hdr-sep"></div>
+    <span class="hdr-condo" id="condoName">Consulta aos Moradores</span>
   </div>
+  <div class="yellow-bar"></div>
 
-  <!-- COLUNA DIREITA -->
-  <div class="col-right">
+  <!-- CONTEÚDO -->
+  <div class="wrap">
 
-    <!-- POLL -->
-    <div class="card poll-card">
-      <p class="sec-label">Enquete</p>
-      <p class="poll-q" id="pollQ"></p>
+    <!-- COLUNA ESQUERDA -->
+    <div class="col-left">
 
-      <!-- Resultado sempre visível -->
-      <div class="poll-result">
-        <div class="poll-bar-wrap">
-          <div class="poll-bar-yes" id="pollBar"></div>
+      <!-- HERO -->
+      <div class="card">
+        <div class="tag">
+          <span id="prodIcon">📦</span>
+          <span id="prodTag">Encomendas no condomínio</span>
         </div>
-        <div class="poll-stats">
-          <span class="stat-yes" id="yesStat">
-            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-            <span id="yesPct">0 votos</span>
-          </span>
-          <span class="stat-total" id="totalStat">Seja o primeiro!</span>
+        <div class="hero-body">
+          <p class="condo-eyebrow" id="condoEyebrow" style="display:none"></p>
+          <h1 class="hero-title" id="heroTitle"></h1>
+          <p class="hero-sub" id="heroSub"></p>
         </div>
+        <ul class="benefits" id="benefitsList"></ul>
       </div>
 
-      <!-- Bloco de apoio -->
-      <div class="support-blk" id="supportBlk" style="display:none"></div>
-
-      <!-- Botões de voto (toggle antes de enviar) -->
-      <div class="poll-btns" id="pollBtns">
-        <button class="pbtn pbtn-yes" id="btnYesEl" onclick="selectVote('yes')">
-          <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-          <span id="btnYesLbl">Sim, quero ser avisado por WhatsApp</span>
-        </button>
-        <button class="pbtn pbtn-no" id="btnNoEl" onclick="selectVote('no')">
-          <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-          <span id="btnNoLbl">Agora não</span>
-        </button>
+      <!-- VÍDEO -->
+      <div class="card video-card">
+        <p class="sec-label">Veja como funciona</p>
+        <div id="vidContainer"></div>
       </div>
+
+      <!-- PREÇO -->
+      <div class="price-card">
+        <div>
+          <div class="price-num">
+            <span class="price-cur">R$</span>
+            <span class="price-val" id="priceVal">0,99</span>
+          </div>
+          <div class="price-unit" id="priceUnit">por unidade / mês</div>
+        </div>
+        <div class="price-desc" id="priceDesc">menos que <strong>1 café</strong><br>por morador</div>
+      </div>
+
     </div>
 
-    <!-- FORMULÁRIO — aparece para qualquer voto selecionado -->
-    <div class="card form-card" id="formCard">
-      <div class="form-hdr">
-        <div class="form-ico">
-          <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-        </div>
-        <div class="form-hdr-text">
-          <h3>Registre seu apoio</h3>
-          <p>Informe seus dados para que o condomínio saiba quais moradores têm interesse nessa melhoria.</p>
-        </div>
-      </div>
+    <!-- COLUNA DIREITA -->
+    <div class="col-right">
 
-      <!-- Badge mostrando o voto atual (pode ser trocado voltando aos botões) -->
-      <div class="vote-badge" id="voteBadge">
-        <svg viewBox="0 0 24 24" id="badgeIcon"></svg>
-        <span id="badgeText"></span>
-      </div>
+      <!-- POLL -->
+      <div class="card poll-card">
+        <p class="sec-label">Enquete</p>
+        <p class="poll-q" id="pollQ"></p>
 
-      <form id="leadForm" onsubmit="submitForm(event)">
-        <input type="hidden" name="condominio"   id="hCondo" />
-        <input type="hidden" name="produto"      id="hProd" />
-        <input type="hidden" name="voto"         id="hVoto" value="" />
-        <input type="hidden" name="utm_source"   id="hSrc" />
-        <input type="hidden" name="utm_medium"   id="hMed" />
-        <input type="hidden" name="utm_campaign" id="hCamp" />
-
-        <div class="fg">
-          <label class="fl" for="nome">Nome completo</label>
-          <input class="fi" type="text" id="nome" name="nome" placeholder="Seu nome" required autocomplete="name" />
-        </div>
-        <div class="row2">
-          <div class="fg">
-            <label class="fl" for="unidade">Unidade</label>
-            <input class="fi" type="text" id="unidade" name="unidade" placeholder="Ex: 302" required />
+        <!-- Resultado sempre visível -->
+        <div class="poll-result">
+          <div class="poll-bar-wrap">
+            <div class="poll-bar-yes" id="pollBar"></div>
           </div>
-          <div class="fg">
-            <label class="fl" for="bloco">Bloco / Torre <span style="font-weight:400;text-transform:none">(opcional)</span></label>
-            <input class="fi" type="text" id="bloco" name="bloco" placeholder="Ex: B" />
+          <div class="poll-stats">
+            <span class="stat-yes" id="yesStat">
+              <svg viewBox="0 0 24 24">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+              <span id="yesPct">0 votos</span>
+            </span>
+            <span class="stat-total" id="totalStat">Seja o primeiro!</span>
           </div>
         </div>
-        <div class="fg">
-          <label class="fl" for="telefone">WhatsApp</label>
-          <input class="fi" type="tel" id="telefone" name="telefone" placeholder="(00) 00000-0000" required autocomplete="tel" oninput="maskPhone(this)" />
+
+        <!-- Bloco de apoio -->
+        <div class="support-blk" id="supportBlk" style="display:none"></div>
+
+        <!-- Botões de voto (toggle antes de enviar) -->
+        <div class="poll-btns" id="pollBtns">
+          <button class="pbtn pbtn-yes" id="btnYesEl" onclick="selectVote('yes')">
+            <svg viewBox="0 0 24 24">
+              <polyline points="20 6 9 17 4 12" />
+            </svg>
+            <span id="btnYesLbl">Sim, quero ser avisado por WhatsApp</span>
+          </button>
+          <button class="pbtn pbtn-no" id="btnNoEl" onclick="selectVote('no')">
+            <svg viewBox="0 0 24 24">
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+            <span id="btnNoLbl">Agora não</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- FORMULÁRIO — aparece para qualquer voto selecionado -->
+      <div class="card form-card" id="formCard">
+        <div class="form-hdr">
+          <div class="form-ico">
+            <svg viewBox="0 0 24 24">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+              <circle cx="12" cy="7" r="4" />
+            </svg>
+          </div>
+          <div class="form-hdr-text">
+            <h3>Registre seu apoio</h3>
+            <p>Informe seus dados para que o condomínio saiba quais moradores têm interesse nessa melhoria.</p>
+          </div>
         </div>
 
-        <button class="btn-sub" type="submit" id="btnSub">
-          <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2" fill="currentColor" stroke="none"/></svg>
-          Confirmar minha participação
-        </button>
-        <p class="privacy">🔒 Dados usados apenas para esta consulta. Não são compartilhados com terceiros.</p>
-      </form>
-    </div>
+        <!-- Badge mostrando o voto atual (pode ser trocado voltando aos botões) -->
+        <div class="vote-badge" id="voteBadge">
+          <svg viewBox="0 0 24 24" id="badgeIcon"></svg>
+          <span id="badgeText"></span>
+        </div>
 
-    <!-- OBRIGADO -->
-    <div class="state s-thanks" id="stThanks">
-      <div class="s-ico">
-        <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        <form id="leadForm" onsubmit="submitForm(event)">
+          <input type="hidden" name="condominio" id="hCondo" />
+          <input type="hidden" name="produto" id="hProd" />
+          <input type="hidden" name="voto" id="hVoto" value="" />
+          <input type="hidden" name="utm_source" id="hSrc" />
+          <input type="hidden" name="utm_medium" id="hMed" />
+          <input type="hidden" name="utm_campaign" id="hCamp" />
+
+          <div class="fg">
+            <label class="fl" for="nome">Nome completo</label>
+            <input class="fi" type="text" id="nome" name="nome" placeholder="Seu nome" required autocomplete="name" />
+          </div>
+          <div class="row2">
+            <div class="fg">
+              <label class="fl" for="unidade">Unidade</label>
+              <input class="fi" type="text" id="unidade" name="unidade" placeholder="Ex: 302" required />
+            </div>
+            <div class="fg">
+              <label class="fl" for="bloco">Bloco / Torre <span
+                  style="font-weight:400;text-transform:none">(opcional)</span></label>
+              <input class="fi" type="text" id="bloco" name="bloco" placeholder="Ex: B" />
+            </div>
+          </div>
+          <div class="fg">
+            <label class="fl" for="telefone">WhatsApp</label>
+            <input class="fi" type="tel" id="telefone" name="telefone" placeholder="(00) 00000-0000" required
+              autocomplete="tel" oninput="maskPhone(this)" />
+          </div>
+
+          <button class="btn-sub" type="submit" id="btnSub">
+            <svg viewBox="0 0 24 24">
+              <line x1="22" y1="2" x2="11" y2="13" />
+              <polygon points="22 2 15 22 11 13 2 9 22 2" fill="currentColor" stroke="none" />
+            </svg>
+            Confirmar minha participação
+          </button>
+          <p class="privacy">🔒 Dados usados apenas para esta consulta. Não são compartilhados com terceiros.</p>
+        </form>
       </div>
-      <h2 class="s-title">Participação <span class="em">confirmada!</span></h2>
-      <p class="s-text" style="margin-top:8px;">
-        Seu apoio foi registrado. A MyCond vai compartilhar o resultado da consulta com a gestão do condomínio.
-      </p>
-      <div class="share-area">
-        <p class="share-label">Convide outros moradores a votarem!</p>
-        <button class="btn-wa" onclick="shareWA()">
-          <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M11.998 2C6.477 2 2 6.484 2 12.017c0 1.867.487 3.686 1.414 5.297L2 22l4.796-1.396A9.953 9.953 0 0 0 12 22c5.522 0 10-4.477 10-10S17.52 2 11.998 2z"/></svg>
-          Compartilhar no WhatsApp
-        </button>
+
+      <!-- OBRIGADO -->
+      <div class="state s-thanks" id="stThanks">
+        <div class="s-ico">
+          <svg viewBox="0 0 24 24">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+            <polyline points="22 4 12 14.01 9 11.01" />
+          </svg>
+        </div>
+        <h2 class="s-title">Participação <span class="em">confirmada!</span></h2>
+        <p class="s-text" style="margin-top:8px;">
+          Seu apoio foi registrado. A MyCond vai compartilhar o resultado da consulta com a gestão do condomínio.
+        </p>
+        <div class="share-area">
+          <p class="share-label">Convide outros moradores a votarem!</p>
+          <button class="btn-wa" onclick="shareWA()">
+            <svg viewBox="0 0 24 24">
+              <path
+                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
+              <path
+                d="M11.998 2C6.477 2 2 6.484 2 12.017c0 1.867.487 3.686 1.414 5.297L2 22l4.796-1.396A9.953 9.953 0 0 0 12 22c5.522 0 10-4.477 10-10S17.52 2 11.998 2z" />
+            </svg>
+            Compartilhar no WhatsApp
+          </button>
+        </div>
       </div>
-    </div>
 
-    <div class="proof">
-      <div class="proof-pill"><span class="dot"></span>+3.000 condomínios</div>
-      <div class="proof-pill"><span class="dot"></span>NPS 90</div>
-      <div class="proof-pill"><span class="dot"></span>WhatsApp nativo</div>
-    </div>
-    <div class="footer">powered by <span>mycond</span></div>
+      <div class="proof">
+        <div class="proof-pill"><span class="dot"></span>+3.000 condomínios</div>
+        <div class="proof-pill"><span class="dot"></span>NPS 90</div>
+        <div class="proof-pill"><span class="dot"></span>WhatsApp nativo</div>
+      </div>
+      <div class="footer">powered by <span>mycond</span></div>
 
+    </div>
   </div>
-</div>
 
-<!-- FAB -->
-<button class="fab" id="fab" onclick="shareWA()">
-  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M11.998 2C6.477 2 2 6.484 2 12.017c0 1.867.487 3.686 1.414 5.297L2 22l4.796-1.396A9.953 9.953 0 0 0 12 22c5.522 0 10-4.477 10-10S17.52 2 11.998 2z"/></svg>
-  <span>Compartilhar</span>
-</button>
+  <!-- FAB -->
+  <button class="fab" id="fab" onclick="shareWA()">
+    <svg viewBox="0 0 24 24">
+      <path
+        d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
+      <path
+        d="M11.998 2C6.477 2 2 6.484 2 12.017c0 1.867.487 3.686 1.414 5.297L2 22l4.796-1.396A9.953 9.953 0 0 0 12 22c5.522 0 10-4.477 10-10S17.52 2 11.998 2z" />
+    </svg>
+    <span>Compartilhar</span>
+  </button>
 
-<script>
-/* ─────────────────────────────────────────────
-   PRODUTOS
-─────────────────────────────────────────────── */
-const PRODUCTS = {
-  encomendas: {
-    icon:'📦', tag:'Encomendas no condomínio',
-    title:'__CONDO__ pode ter uma forma mais rápida e segura de receber encomendas.',
-    sub:  'Você gostaria de ser avisado pelo WhatsApp sempre que uma encomenda chegar para você?',
-    poll: 'Você apoia essa melhoria no __CONDO__?',
-    support: null,
-    btnYes:'Sim, quero ser avisado por WhatsApp',
-    btnNo: 'Agora não, o condomínio não tem muitas encomendas',
-    videoId:'foP6Hh7LpNc',
-    benefits:[
-      'Aviso pelo <strong>WhatsApp assim que a encomenda chega</strong>',
-      '<strong>Menos demora na retirada</strong> e menos fila na portaria',
-      'Registro com <strong>foto da etiqueta</strong>, data, horário e unidade',
-      '<strong>Mais segurança</strong> contra perda, troca ou entrega errada',
-      'Retirada com <strong>confirmação por assinatura ou senha</strong>',
-    ],
-    priceUnit:'por unidade / mês',
-    priceDesc:'menos que <strong>1 café</strong><br>por morador',
-  },
-  reservas: {
-    icon:'🏊', tag:'Reservas de Áreas Comuns',
-    title:'__CONDO__ pode modernizar as reservas de áreas comuns.',
-    sub:  'Você gostaria de reservar a piscina ou o salão pelo WhatsApp, sem ligar para ninguém?',
-    poll: 'Você apoia essa melhoria no __CONDO__?',
-    support:'Com a plataforma da <strong>MyCond</strong>, o morador vê a agenda, as regras e faz a reserva pelo WhatsApp — sem precisar acionar o síndico.',
-    btnYes:'Sim, quero reservar pelo WhatsApp',
-    btnNo: 'Prefiro o processo atual',
-    videoId:'',
-    benefits:[
-      'Reserve pelo <strong>WhatsApp, 24 horas por dia</strong>',
-      '<strong>Sem conflito de horários</strong> — agenda online visível a todos',
-      '<strong>Sem ligar para o síndico</strong> — regras automáticas',
-      'Confirmação e lembrete direto no celular',
-    ],
-    priceUnit:'por unidade / mês',
-    priceDesc:'menos que <strong>1 café</strong><br>por morador',
-  },
-  myia: {
-    icon:'🤖', tag:'MYIA — Atendimento com IA',
-    title:'__CONDO__ pode ter atendimento por IA 24h no WhatsApp.',
-    sub:  'Reservas, ocorrências, boletos e encomendas — tudo resolvido sem esperar o síndico.',
-    poll: 'Você apoia essa melhoria no __CONDO__?',
-    support:'A <strong>MYIA da MyCond</strong> resolve até 90% das demandas dos moradores automaticamente, por texto ou áudio, sem intervenção humana.',
-    btnYes:'Sim, quero esse atendimento',
-    btnNo: 'Prefiro o atendimento atual',
-    videoId:'',
-    benefits:[
-      '<strong>Atendimento 24h</strong> no WhatsApp — fins de semana e feriados',
-      'Faz reservas, registra ocorrências e envia boletos',
-      '<strong>90% das demandas</strong> resolvidas sem intervenção humana',
-      'Responde por texto ou áudio',
-    ],
-    priceUnit:'por unidade / mês',
-    priceDesc:'menos que <strong>1 café</strong><br>por morador',
-  },
-};
+  <script>
+    /* ─────────────────────────────────────────────
+       PRODUTOS
+    ─────────────────────────────────────────────── */
+    const PRODUCTS = {
+      encomendas: {
+        icon: '📦', tag: 'Encomendas no condomínio',
+        title: '__CONDO__ pode ter uma forma mais rápida e segura de receber encomendas.',
+        sub: 'Você gostaria de ser avisado pelo WhatsApp sempre que uma encomenda chegar para você?',
+        poll: 'Você apoia essa melhoria no __CONDO__?',
+        support: null,
+        btnYes: 'Sim, quero ser avisado por WhatsApp',
+        btnNo: 'Agora não, o condomínio não tem muitas encomendas',
+        videoId: 'foP6Hh7LpNc',
+        benefits: [
+          'Aviso pelo <strong>WhatsApp assim que a encomenda chega</strong>',
+          '<strong>Menos demora na retirada</strong> e menos fila na portaria',
+          'Registro com <strong>foto da etiqueta</strong>, data, horário e unidade',
+          '<strong>Mais segurança</strong> contra perda, troca ou entrega errada',
+          'Retirada com <strong>confirmação por assinatura ou senha</strong>',
+        ],
+        priceUnit: 'por unidade / mês',
+        priceDesc: 'menos que <strong>1 café</strong><br>por morador',
+      },
+      reservas: {
+        icon: '🏊', tag: 'Reservas de Áreas Comuns',
+        title: '__CONDO__ pode modernizar as reservas de áreas comuns.',
+        sub: 'Você gostaria de reservar a piscina ou o salão pelo WhatsApp, sem ligar para ninguém?',
+        poll: 'Você apoia essa melhoria no __CONDO__?',
+        support: 'Com a plataforma da <strong>MyCond</strong>, o morador vê a agenda, as regras e faz a reserva pelo WhatsApp — sem precisar acionar o síndico.',
+        btnYes: 'Sim, quero reservar pelo WhatsApp',
+        btnNo: 'Prefiro o processo atual',
+        videoId: '',
+        benefits: [
+          'Reserve pelo <strong>WhatsApp, 24 horas por dia</strong>',
+          '<strong>Sem conflito de horários</strong> — agenda online visível a todos',
+          '<strong>Sem ligar para o síndico</strong> — regras automáticas',
+          'Confirmação e lembrete direto no celular',
+        ],
+        priceUnit: 'por unidade / mês',
+        priceDesc: 'menos que <strong>1 café</strong><br>por morador',
+      },
+      myia: {
+        icon: '🤖', tag: 'MYIA — Atendimento com IA',
+        title: '__CONDO__ pode ter atendimento por IA 24h no WhatsApp.',
+        sub: 'Reservas, ocorrências, boletos e encomendas — tudo resolvido sem esperar o síndico.',
+        poll: 'Você apoia essa melhoria no __CONDO__?',
+        support: 'A <strong>MYIA da MyCond</strong> resolve até 90% das demandas dos moradores automaticamente, por texto ou áudio, sem intervenção humana.',
+        btnYes: 'Sim, quero esse atendimento',
+        btnNo: 'Prefiro o atendimento atual',
+        videoId: '',
+        benefits: [
+          '<strong>Atendimento 24h</strong> no WhatsApp — fins de semana e feriados',
+          'Faz reservas, registra ocorrências e envia boletos',
+          '<strong>90% das demandas</strong> resolvidas sem intervenção humana',
+          'Responde por texto ou áudio',
+        ],
+        priceUnit: 'por unidade / mês',
+        priceDesc: 'menos que <strong>1 café</strong><br>por morador',
+      },
+    };
 
-/* ─────────────────────────────────────────────
-   ENDPOINT
-   Substitua pela URL do seu Google Apps Script
-   (veja o arquivo google-sheet-script.js)
-─────────────────────────────────────────────── */
-const FORM_ENDPOINT = 'https://script.google.com/macros/s/AKfycbxkqwstlI467iU7nZYB6uqQ35wfjZFG7Y8BJ2eTxankpSMx6iyK7uWg4pZ_tZncy8zdKw/exec';
+    /* ─────────────────────────────────────────────
+       ENDPOINT
+       Substitua pela URL do seu Google Apps Script
+       (veja o arquivo google-sheet-script.js)
+    ─────────────────────────────────────────────── */
+    const FORM_ENDPOINT = 'https://script.google.com/macros/s/AKfycbxkqwstlI467iU7nZYB6uqQ35wfjZFG7Y8BJ2eTxankpSMx6iyK7uWg4pZ_tZncy8zdKw/exec';
 
-/* ─────────────────────────────────────────────
-   INIT
-─────────────────────────────────────────────── */
-document.addEventListener('DOMContentLoaded', () => {
-  const p     = new URLSearchParams(window.location.search);
-  const condo = p.get('c')     || p.get('condo')   || '';
-  const prod  = p.get('p')     || p.get('produto')  || 'encomendas';
-  const preco = p.get('preco') || p.get('v')        || '';
-  const yt    = p.get('yt')    || '';
-  const logo  = p.get('logo')  || '';        // URL externa da logo (opcional)
+    /* ─────────────────────────────────────────────
+       INIT
+    ─────────────────────────────────────────────── */
+    document.addEventListener('DOMContentLoaded', () => {
+      const p = new URLSearchParams(window.location.search);
+      const condo = p.get('c') || p.get('condo') || '';
+      const prod = p.get('p') || p.get('produto') || 'encomendas';
+      const preco = p.get('preco') || p.get('v') || '';
+      const yt = p.get('yt') || '';
+      const logo = p.get('logo') || '';        // URL externa da logo (opcional)
 
-  const cfg     = PRODUCTS[prod] || PRODUCTS.encomendas;
-  const pollKey = prod + '_' + (condo || 'geral').toLowerCase().replace(/\W+/g,'_');
-  window._pollKey = pollKey;
-  window._condo   = condo;
-  window._prod    = prod;
-  window._preco   = preco;
+      const cfg = PRODUCTS[prod] || PRODUCTS.encomendas;
+      const pollKey = prod + '_' + (condo || 'geral').toLowerCase().replace(/\W+/g, '_');
+      window._pollKey = pollKey;
+      window._condo = condo;
+      window._prod = prod;
+      window._preco = preco;
 
-  // Logo: parâmetro ?logo= sobrescreve o arquivo local
-  if (logo) document.getElementById('logoImg').src = logo;
+      // Logo: parâmetro ?logo= sobrescreve o arquivo local
+      if (logo) document.getElementById('logoImg').src = logo;
 
-  // Hidden fields
-  document.getElementById('hCondo').value = condo;
-  document.getElementById('hProd').value  = prod;
-  document.getElementById('hSrc').value   = p.get('utm_source')   || '';
-  document.getElementById('hMed').value   = p.get('utm_medium')   || '';
-  document.getElementById('hCamp').value  = p.get('utm_campaign') || '';
+      // Hidden fields
+      document.getElementById('hCondo').value = condo;
+      document.getElementById('hProd').value = prod;
+      document.getElementById('hSrc').value = p.get('utm_source') || '';
+      document.getElementById('hMed').value = p.get('utm_medium') || '';
+      document.getElementById('hCamp').value = p.get('utm_campaign') || '';
 
-  // Header e eyebrow
-  if (condo) {
-    document.getElementById('condoName').textContent       = condo;
-    document.getElementById('condoEyebrow').textContent    = condo;
-    document.getElementById('condoEyebrow').style.display  = 'block';
-  }
+      // Header e eyebrow
+      if (condo) {
+        document.getElementById('condoName').textContent = condo;
+        document.getElementById('condoEyebrow').textContent = condo;
+        document.getElementById('condoEyebrow').style.display = 'block';
+      }
 
-  // Conteúdo dinâmico
-  const bold  = condo ? '<strong>' + escHtml(condo) + '</strong>' : 'Seu condomínio';
-  const plain = condo ? condo : 'seu condomínio';
+      // Conteúdo dinâmico
+      const bold = condo ? '<strong>' + escHtml(condo) + '</strong>' : 'Seu condomínio';
+      const plain = condo ? condo : 'seu condomínio';
 
-  document.getElementById('prodIcon').textContent  = cfg.icon;
-  document.getElementById('prodTag').textContent   = cfg.tag;
-  document.getElementById('heroTitle').innerHTML   = (cfg.title||'').replace('__CONDO__', bold);
-  document.getElementById('heroSub').textContent   = cfg.sub;
-  document.getElementById('pollQ').innerHTML       = (cfg.poll||'').replace('__CONDO__', escHtml(plain));
-  document.getElementById('btnYesLbl').textContent = cfg.btnYes;
-  document.getElementById('btnNoLbl').textContent  = cfg.btnNo;
+      document.getElementById('prodIcon').textContent = cfg.icon;
+      document.getElementById('prodTag').textContent = cfg.tag;
+      document.getElementById('heroTitle').innerHTML = (cfg.title || '').replace('__CONDO__', bold);
+      document.getElementById('heroSub').textContent = cfg.sub;
+      document.getElementById('pollQ').innerHTML = (cfg.poll || '').replace('__CONDO__', escHtml(plain));
+      document.getElementById('btnYesLbl').textContent = cfg.btnYes;
+      document.getElementById('btnNoLbl').textContent = cfg.btnNo;
 
-  if (cfg.support) {
-    const el = document.getElementById('supportBlk');
-    el.innerHTML = cfg.support;
-    el.style.display = 'block';
-  }
+      if (cfg.support) {
+        const el = document.getElementById('supportBlk');
+        el.innerHTML = cfg.support;
+        el.style.display = 'block';
+      }
 
-  // Benefícios
-  const ul = document.getElementById('benefitsList');
-  cfg.benefits.forEach(b => {
-    const li = document.createElement('li');
-    li.className = 'benefit';
-    li.innerHTML = `<span class="chk"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span><span>${b}</span>`;
-    ul.appendChild(li);
-  });
+      // Benefícios
+      const ul = document.getElementById('benefitsList');
+      cfg.benefits.forEach(b => {
+        const li = document.createElement('li');
+        li.className = 'benefit';
+        li.innerHTML = `<span class="chk"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span><span>${b}</span>`;
+        ul.appendChild(li);
+      });
 
-  // Vídeo: thumbnail clicável (não carrega iframe diretamente — evita Erro 153)
-  const videoId = yt || cfg.videoId || '';
-  buildVideo(videoId);
+      // Vídeo: thumbnail clicável (não carrega iframe diretamente — evita Erro 153)
+      const videoId = yt || cfg.videoId || '';
+      buildVideo(videoId);
 
-  // Preço
-  if (preco) document.getElementById('priceVal').textContent = String(preco).replace('.',',');
-  document.getElementById('priceUnit').textContent = cfg.priceUnit;
-  document.getElementById('priceDesc').innerHTML   = cfg.priceDesc;
+      // Preço
+      if (preco) document.getElementById('priceVal').textContent = String(preco).replace('.', ',');
+      document.getElementById('priceUnit').textContent = cfg.priceUnit;
+      document.getElementById('priceDesc').innerHTML = cfg.priceDesc;
 
-  // Poll
-  renderPoll(pollKey);
+      // Poll
+      fetchRealPollResults();
 
-  // Restaurar estado se já enviou formulário
-  if (sessionStorage.getItem('mc_done_' + pollKey)) showThanks(false);
-});
+      // Restaurar estado se já enviou formulário
+      if (sessionStorage.getItem('mc_done_' + pollKey)) showThanks(false);
+    });
 
-function escHtml(s) {
-  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-}
+    function escHtml(s) {
+      return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
 
-/* ─────────────────────────────────────────────
-   VÍDEO — thumbnail clicável, iframe só ao clicar
-   Resolve o Erro 153 (embedding restrictions)
-─────────────────────────────────────────────── */
-function buildVideo(videoId) {
-  const container = document.getElementById('vidContainer');
+    /* ─────────────────────────────────────────────
+       VÍDEO — thumbnail clicável, iframe só ao clicar
+       Resolve o Erro 153 (embedding restrictions)
+    ─────────────────────────────────────────────── */
+    function buildVideo(videoId) {
+      const container = document.getElementById('vidContainer');
 
-  if (!videoId) {
-    container.innerHTML = `
+      if (!videoId) {
+        container.innerHTML = `
       <div style="position:relative;width:100%;padding-bottom:56.25%;border-radius:16px;overflow:hidden;background:#1B1F36;">
         <div style="position:absolute;top:0;left:0;width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;">
           <div style="width:52px;height:52px;background:#FDC600;border-radius:50%;display:flex;align-items:center;justify-content:center;">
@@ -593,14 +1363,14 @@ function buildVideo(videoId) {
           <p style="font-size:13px;font-weight:600;color:#7A8098;">Vídeo demonstrativo em breve</p>
         </div>
       </div>`;
-    return;
-  }
+        return;
+      }
 
-  // Thumbnail via YouTube API (funciona mesmo para Shorts)
-  const thumb = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
-  const ytUrl = `https://www.youtube.com/watch?v=${videoId}`;
+      // Thumbnail via YouTube API (funciona mesmo para Shorts)
+      const thumb = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
+      const ytUrl = `https://www.youtube.com/watch?v=${videoId}`;
 
-  container.innerHTML = `
+      container.innerHTML = `
     <div class="vid-thumb" onclick="loadVideo('${videoId}', this)" title="Clique para assistir">
       <img src="${thumb}" alt="Thumbnail do vídeo" loading="lazy" />
       <div class="play-overlay">
@@ -613,164 +1383,166 @@ function buildVideo(videoId) {
     <p style="text-align:center;margin-top:8px;font-size:11px;color:#9B9A9A;">
       Prefere abrir no YouTube? <a href="${ytUrl}" target="_blank" style="color:#FDC600;font-weight:700;text-decoration:none;">Assistir aqui ↗</a>
     </p>`;
-}
+    }
 
-function loadVideo(videoId, thumbEl) {
-  // Substituir thumbnail pelo iframe ao clicar
-  const wrap = document.createElement('div');
-  wrap.className = 'vid-wrap';
-  wrap.innerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1&playsinline=1"
+    function loadVideo(videoId, thumbEl) {
+      // Substituir thumbnail pelo iframe ao clicar
+      const wrap = document.createElement('div');
+      wrap.className = 'vid-wrap';
+      wrap.innerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1&playsinline=1"
     allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
     style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;border-radius:16px;"></iframe>`;
 
-  const parent = thumbEl.parentNode;
-  parent.replaceChild(wrap, thumbEl);
-}
-
-/* ─────────────────────────────────────────────
-   POLL — resultado por condomínio (pollKey único)
-   Dados em localStorage: privados ao dispositivo
-   Dados reais: Google Sheets via Apps Script
-─────────────────────────────────────────────── */
-function getPoll(key) {
-  try { return JSON.parse(localStorage.getItem('mc_p_'+key)||'{"yes":0,"no":0}'); }
-  catch { return {yes:0,no:0}; }
-}
-function savePoll(key,d) { try{localStorage.setItem('mc_p_'+key,JSON.stringify(d));}catch{} }
-
-function renderPoll(key) {
-  const d = getPoll(key);
-  const total = d.yes + d.no;
-  const pct   = total > 0 ? Math.round(d.yes/total*100) : 0;
-  if (total > 0) {
-    setTimeout(() => { document.getElementById('pollBar').style.width = pct+'%'; }, 100);
-    document.getElementById('yesPct').textContent    = pct+'% apoiam';
-    document.getElementById('totalStat').textContent = total+(total===1?' voto':' votos');
-  }
-}
-
-/* ─────────────────────────────────────────────
-   SELEÇÃO DE VOTO (toggle antes de enviar)
-─────────────────────────────────────────────── */
-function selectVote(choice) {
-  // Atualizar visual dos botões
-  const btnY = document.getElementById('btnYesEl');
-  const btnN = document.getElementById('btnNoEl');
-  btnY.classList.toggle('selected', choice === 'yes');
-  btnN.classList.toggle('selected', choice === 'no');
-
-  // Atualizar hidden field
-  document.getElementById('hVoto').value = choice;
-
-  // Atualizar badge no formulário
-  const badge = document.getElementById('voteBadge');
-  const icon  = document.getElementById('badgeIcon');
-  const txt   = document.getElementById('badgeText');
-
-  if (choice === 'yes') {
-    badge.className = 'vote-badge yes';
-    icon.setAttribute('viewBox','0 0 24 24');
-    icon.innerHTML = '<polyline points="20 6 9 17 4 12"/>';
-    txt.textContent = 'Você escolheu: Sim, quero ser avisado';
-  } else {
-    badge.className = 'vote-badge no';
-    icon.setAttribute('viewBox','0 0 24 24');
-    icon.innerHTML = '<line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>';
-    txt.textContent = 'Você escolheu: Agora não';
-  }
-
-  // Mostrar formulário
-  const fc = document.getElementById('formCard');
-  fc.classList.add('show');
-  setTimeout(() => fc.scrollIntoView({behavior:'smooth', block:'nearest'}), 250);
-}
-
-/* ─────────────────────────────────────────────
-   ENVIO DO FORMULÁRIO
-─────────────────────────────────────────────── */
-async function submitForm(e) {
-  e.preventDefault();
-  const voto = document.getElementById('hVoto').value;
-  if (!voto) { alert('Selecione uma opção antes de confirmar.'); return; }
-
-  const btn = document.getElementById('btnSub');
-  btn.disabled = true;
-  btn.innerHTML = '<span style="opacity:.6">Enviando...</span>';
-
-  // Contabilizar localmente
-  const key = window._pollKey;
-  const d   = getPoll(key);
-  d[voto]++;
-  savePoll(key, d);
-  renderPoll(key);
-
-  // Travar botões de voto
-  document.getElementById('btnYesEl').disabled = true;
-  document.getElementById('btnNoEl').disabled  = true;
-
-  try {
-    if (!FORM_ENDPOINT || FORM_ENDPOINT.includes('COLE_AQUI')) {
-      await new Promise(r => setTimeout(r,700));
-      showThanks(true);
-      return;
+      const parent = thumbEl.parentNode;
+      parent.replaceChild(wrap, thumbEl);
     }
-await fetch(FORM_ENDPOINT, {
-  method: 'POST',
-  mode: 'no-cors',
-  body: new FormData(document.getElementById('leadForm')),
-});
 
-showThanks(true);
-  } catch {
-    btn.disabled = false;
-    btn.innerHTML = 'Tentar novamente';
-    alert('Não conseguimos enviar. Tente novamente.');
-  }
-}
+    /* ─────────────────────────────────────────────
+       POLL — resultado por condomínio (pollKey único)
+       Dados em localStorage: privados ao dispositivo
+       Dados reais: Google Sheets via Apps Script
+    ─────────────────────────────────────────────── */
+    function getPoll(key) {
+      try { return JSON.parse(localStorage.getItem('mc_p_' + key) || '{"yes":0,"no":0}'); }
+      catch { return { yes: 0, no: 0 }; }
+    }
+    function savePoll(key, d) { try { localStorage.setItem('mc_p_' + key, JSON.stringify(d)); } catch { } }
 
-function showThanks(save) {
-  if (save) sessionStorage.setItem('mc_done_'+window._pollKey, '1');
-  document.getElementById('formCard').style.display  = 'none';
-  document.getElementById('stThanks').classList.add('show');
-  document.getElementById('fab').classList.add('hidden');
-  setTimeout(() => document.getElementById('stThanks').scrollIntoView({behavior:'smooth',block:'start'}), 200);
-}
+    function renderPoll(key) {
+      const d = getPoll(key);
+      const total = d.yes + d.no;
+      const pct = total > 0 ? Math.round(d.yes / total * 100) : 0;
+      if (total > 0) {
+        setTimeout(() => { document.getElementById('pollBar').style.width = pct + '%'; }, 100);
+        document.getElementById('yesPct').textContent = pct + '% apoiam';
+        document.getElementById('totalStat').textContent = total + (total === 1 ? ' voto' : ' votos');
+      }
+    }
 
-/* ─────────────────────────────────────────────
-   COMPARTILHAR
-─────────────────────────────────────────────── */
-function shareWA() {
-  const p     = new URLSearchParams(window.location.search);
-  const condo = p.get('c') || p.get('condo') || window._condo || '';
-  const prod  = p.get('p') || window._prod  || 'encomendas';
-  const preco = p.get('preco') || window._preco || '';
+    /* ─────────────────────────────────────────────
+       SELEÇÃO DE VOTO (toggle antes de enviar)
+    ─────────────────────────────────────────────── */
+    function selectVote(choice) {
+      // Atualizar visual dos botões
+      const btnY = document.getElementById('btnYesEl');
+      const btnN = document.getElementById('btnNoEl');
+      btnY.classList.toggle('selected', choice === 'yes');
+      btnN.classList.toggle('selected', choice === 'no');
 
-  const sp = new URLSearchParams();
-  if (condo) sp.set('c', condo);
-  if (prod !== 'encomendas') sp.set('p', prod);
-  if (preco) sp.set('preco', preco);
-  sp.set('utm_source','whatsapp');
-  sp.set('utm_medium','morador');
+      // Atualizar hidden field
+      document.getElementById('hVoto').value = choice;
 
-  const url  = window.location.origin + window.location.pathname + '?' + sp.toString();
-  const nome = condo ? `o *${condo}*` : 'nosso condomínio';
-  const msg  = `Oi! ${nome} está consultando os moradores sobre uma melhoria nas encomendas — um sistema que avisa no WhatsApp quando o pacote chega. 📦\n\nVote aqui e ajude a mostrar para a gestão que os moradores querem essa melhoria:\n${url}`;
+      // Atualizar badge no formulário
+      const badge = document.getElementById('voteBadge');
+      const icon = document.getElementById('badgeIcon');
+      const txt = document.getElementById('badgeText');
 
-  window.open('https://wa.me/?text='+encodeURIComponent(msg), '_blank');
-}
+      if (choice === 'yes') {
+        badge.className = 'vote-badge yes';
+        icon.setAttribute('viewBox', '0 0 24 24');
+        icon.innerHTML = '<polyline points="20 6 9 17 4 12"/>';
+        txt.textContent = 'Você escolheu: Sim, quero ser avisado';
+      } else {
+        badge.className = 'vote-badge no';
+        icon.setAttribute('viewBox', '0 0 24 24');
+        icon.innerHTML = '<line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>';
+        txt.textContent = 'Você escolheu: Agora não';
+      }
 
-/* ─────────────────────────────────────────────
-   MÁSCARA TELEFONE
-─────────────────────────────────────────────── */
-function maskPhone(el) {
-  let v = el.value.replace(/\D/g,'').slice(0,11);
-  if (v.length>10)      v=v.replace(/^(\d{2})(\d{5})(\d{4})$/,'($1) $2-$3');
-  else if (v.length>6)  v=v.replace(/^(\d{2})(\d{4})(\d*)$/,  '($1) $2-$3');
-  else if (v.length>2)  v=v.replace(/^(\d{2})(\d*)$/,          '($1) $2');
-  else if (v.length>0)  v='('+v;
-  el.value=v;
-}
-</script>
+      // Mostrar formulário
+      const fc = document.getElementById('formCard');
+      fc.classList.add('show');
+      setTimeout(() => fc.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 250);
+    }
+
+    /* ─────────────────────────────────────────────
+       ENVIO DO FORMULÁRIO
+    ─────────────────────────────────────────────── */
+    async function submitForm(e) {
+      e.preventDefault();
+      const voto = document.getElementById('hVoto').value;
+      if (!voto) { alert('Selecione uma opção antes de confirmar.'); return; }
+
+      const btn = document.getElementById('btnSub');
+      btn.disabled = true;
+      btn.innerHTML = '<span style="opacity:.6">Enviando...</span>';
+
+      // Contabilizar localmente
+      //const key = window._pollKey;
+      //const d   = getPoll(key);
+      //d[voto]++;
+      //savePoll(key, d);
+      //renderPoll(key);
+
+      // Travar botões de voto
+      document.getElementById('btnYesEl').disabled = true;
+      document.getElementById('btnNoEl').disabled = true;
+
+      try {
+        if (!FORM_ENDPOINT || FORM_ENDPOINT.includes('COLE_AQUI')) {
+          await new Promise(r => setTimeout(r, 700));
+          fetchRealPollResults();
+          showThanks(true);
+          return;
+        }
+        await fetch(FORM_ENDPOINT, {
+          method: 'POST',
+          mode: 'no-cors',
+          body: new FormData(document.getElementById('leadForm')),
+        });
+
+        showThanks(true);
+      } catch {
+        btn.disabled = false;
+        btn.innerHTML = 'Tentar novamente';
+        alert('Não conseguimos enviar. Tente novamente.');
+      }
+    }
+
+    function showThanks(save) {
+      if (save) sessionStorage.setItem('mc_done_' + window._pollKey, '1');
+      document.getElementById('formCard').style.display = 'none';
+      document.getElementById('stThanks').classList.add('show');
+      document.getElementById('fab').classList.add('hidden');
+      setTimeout(() => document.getElementById('stThanks').scrollIntoView({ behavior: 'smooth', block: 'start' }), 200);
+    }
+
+    /* ─────────────────────────────────────────────
+       COMPARTILHAR
+    ─────────────────────────────────────────────── */
+    function shareWA() {
+      const p = new URLSearchParams(window.location.search);
+      const condo = p.get('c') || p.get('condo') || window._condo || '';
+      const prod = p.get('p') || window._prod || 'encomendas';
+      const preco = p.get('preco') || window._preco || '';
+
+      const sp = new URLSearchParams();
+      if (condo) sp.set('c', condo);
+      if (prod !== 'encomendas') sp.set('p', prod);
+      if (preco) sp.set('preco', preco);
+      sp.set('utm_source', 'whatsapp');
+      sp.set('utm_medium', 'morador');
+
+      const url = window.location.origin + window.location.pathname + '?' + sp.toString();
+      const nome = condo ? `o *${condo}*` : 'nosso condomínio';
+      const msg = `Oi! ${nome} está consultando os moradores sobre uma melhoria nas encomendas — um sistema que avisa no WhatsApp quando o pacote chega. 📦\n\nVote aqui e ajude a mostrar para a gestão que os moradores querem essa melhoria:\n${url}`;
+
+      window.open('https://wa.me/?text=' + encodeURIComponent(msg), '_blank');
+    }
+
+    /* ─────────────────────────────────────────────
+       MÁSCARA TELEFONE
+    ─────────────────────────────────────────────── */
+    function maskPhone(el) {
+      let v = el.value.replace(/\D/g, '').slice(0, 11);
+      if (v.length > 10) v = v.replace(/^(\d{2})(\d{5})(\d{4})$/, '($1) $2-$3');
+      else if (v.length > 6) v = v.replace(/^(\d{2})(\d{4})(\d*)$/, '($1) $2-$3');
+      else if (v.length > 2) v = v.replace(/^(\d{2})(\d*)$/, '($1) $2');
+      else if (v.length > 0) v = '(' + v;
+      el.value = v;
+    }
+  </script>
 
 </body>
+
 </html>
