@@ -5,6 +5,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Consulta aos Moradores — MyCond</title>
+  <meta property="og:title" content="Consulta aos Moradores — MyCond">
+  <meta property="og:description"
+    content="O síndico quer saber sua opinião sobre uma melhoria no condomínio. Vote em 10 segundos!">
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap"
     rel="stylesheet" />
@@ -103,30 +106,9 @@
 
     /* ── LAYOUT ── */
     .wrap {
-      max-width: 1080px;
+      max-width: 680px;
       margin: 0 auto;
       padding: 20px 16px 56px;
-    }
-
-    @media(min-width:860px) {
-      .wrap {
-        padding: 32px 28px 64px;
-        display: flex;
-        gap: 24px;
-        align-items: flex-start;
-      }
-
-      .col-left {
-        flex: 1;
-        min-width: 0;
-      }
-
-      .col-right {
-        width: 380px;
-        flex-shrink: 0;
-        position: sticky;
-        top: 76px;
-      }
     }
 
     /* ── CARD ── */
@@ -138,8 +120,20 @@
       margin-bottom: 16px;
     }
 
-    /* ── HERO ── */
-    .tag {
+    /* ── SEÇÃO ENQUETE (HERO) ── */
+    .poll-hero {
+      background: var(--white);
+      border-radius: var(--r-xl);
+      box-shadow: 0 4px 24px rgba(27, 31, 54, .12);
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+
+    .poll-hero-inner {
+      padding: 24px 20px 20px;
+    }
+
+    .poll-tag {
       display: inline-flex;
       align-items: center;
       gap: 6px;
@@ -151,45 +145,217 @@
       letter-spacing: .08em;
       padding: 5px 12px;
       border-radius: var(--r-pill);
-      margin: 20px 20px 0;
+      margin-bottom: 14px;
     }
 
-    .hero-body {
-      padding: 14px 20px 0;
-    }
-
-    .condo-eyebrow {
+    .poll-condo-name {
       font-size: 11px;
       font-weight: 700;
       color: var(--yellow-dark);
       text-transform: uppercase;
       letter-spacing: .07em;
-      margin-bottom: 5px;
-    }
-
-    .hero-title {
-      font-size: clamp(18px, 3.5vw, 24px);
-      font-weight: 900;
-      line-height: 1.22;
       margin-bottom: 6px;
-      word-break: normal;
-      overflow-wrap: anywhere;
+      display: none;
     }
 
-    .hero-sub {
+    .poll-question {
+      font-size: clamp(19px, 4vw, 26px);
+      font-weight: 900;
+      line-height: 1.28;
+      margin-bottom: 8px;
+      color: var(--navy);
+    }
+
+    .poll-subtitle {
       font-size: 14px;
       font-weight: 500;
       color: var(--gray);
       line-height: 1.55;
+      margin-bottom: 20px;
+    }
+
+    /* Resultado da enquete */
+    .poll-result {
       margin-bottom: 18px;
+    }
+
+    .poll-bar-wrap {
+      background: var(--gray-ll);
+      border-radius: var(--r-pill);
+      height: 12px;
+      overflow: hidden;
+      margin-bottom: 8px;
+    }
+
+    .poll-bar-yes {
+      height: 100%;
+      background: linear-gradient(90deg, var(--green), #34D399);
+      border-radius: var(--r-pill);
+      width: 0%;
+      transition: width .7s ease;
+    }
+
+    .poll-stats {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .stat-yes {
+      color: var(--green);
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .stat-yes svg {
+      width: 14px;
+      height: 14px;
+      stroke: var(--green);
+      fill: none;
+      stroke-width: 2.5;
+    }
+
+    .stat-total {
+      color: var(--gray);
+    }
+
+    /* Bloco de apoio */
+    .support-blk {
+      background: var(--yellow-bg);
+      border-left: 3px solid var(--yellow);
+      border-radius: 0 var(--r-md) var(--r-md) 0;
+      padding: 12px 14px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--navy);
+      line-height: 1.55;
+      margin-bottom: 18px;
+    }
+
+    .support-blk strong {
+      font-weight: 700;
+    }
+
+    /* Botões de voto — SIM grande, NÃO discreto */
+    .poll-btns {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .pbtn {
+      border: 2px solid transparent;
+      border-radius: var(--r-lg);
+      font-family: var(--font);
+      cursor: pointer;
+      transition: all var(--t);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      line-height: 1.3;
+      text-align: center;
+    }
+
+    .pbtn svg {
+      width: 18px;
+      height: 18px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      flex-shrink: 0;
+    }
+
+    /* SIM — grande e chamativo */
+    .pbtn-yes {
+      background: var(--green);
+      color: var(--white);
+      border-color: var(--green);
+      padding: 18px 16px;
+      font-size: 16px;
+      font-weight: 800;
+      box-shadow: 0 4px 18px rgba(34, 197, 94, .30);
+    }
+
+    .pbtn-yes:hover {
+      background: var(--green-dark);
+      border-color: var(--green-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(34, 197, 94, .40);
+    }
+
+    /* NÃO — pequeno e discreto */
+    .pbtn-no {
+      background: transparent;
+      color: var(--gray);
+      border-color: transparent;
+      padding: 10px 16px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    .pbtn-no:hover {
+      background: var(--gray-ll);
+      color: var(--navy);
+    }
+
+    /* Estado selecionado */
+    .pbtn-yes.selected {
+      background: var(--green-dark);
+      color: var(--white);
+      border-color: var(--green-dark);
+      box-shadow: 0 4px 14px rgba(34, 197, 94, .3);
+    }
+
+    .pbtn-no.selected {
+      background: var(--navy);
+      color: var(--white);
+      border-color: var(--navy);
+      font-weight: 700;
+    }
+
+    .pbtn:disabled {
+      cursor: not-allowed;
+      opacity: .5;
+    }
+
+    /* ── BENEFÍCIOS ── */
+    .sec-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: var(--gray);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .sec-label::before {
+      content: '';
+      display: inline-block;
+      width: 12px;
+      height: 3px;
+      background: var(--yellow);
+      border-radius: 2px;
+    }
+
+    .benefits-card {
+      padding: 20px;
     }
 
     .benefits {
       list-style: none;
-      padding: 0 20px 20px;
+      padding: 0;
       display: flex;
       flex-direction: column;
-      gap: 11px;
+      gap: 12px;
     }
 
     .benefit {
@@ -221,33 +387,63 @@
       fill: none;
     }
 
+    /* ── PREÇO ── */
+    .price-card {
+      background: var(--navy);
+      border-radius: var(--r-xl);
+      padding: 15px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      margin-bottom: 16px;
+      box-shadow: var(--s-sm);
+    }
+
+    .price-num {
+      display: flex;
+      align-items: baseline;
+      gap: 1px;
+    }
+
+    .price-cur {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--yellow);
+    }
+
+    .price-val {
+      font-size: 34px;
+      font-weight: 900;
+      color: var(--yellow);
+      line-height: 1;
+    }
+
+    .price-unit {
+      font-size: 11px;
+      font-weight: 600;
+      color: #7A8098;
+      margin-top: 3px;
+    }
+
+    .price-desc {
+      font-size: 12px;
+      font-weight: 500;
+      color: #7A8098;
+      text-align: right;
+      line-height: 1.4;
+    }
+
+    .price-desc strong {
+      color: var(--yellow);
+      font-weight: 700;
+    }
+
     /* ── VÍDEO ── */
     .video-card {
       padding: 16px;
     }
 
-    .sec-label {
-      font-size: 11px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: .1em;
-      color: var(--gray);
-      margin-bottom: 10px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .sec-label::before {
-      content: '';
-      display: inline-block;
-      width: 12px;
-      height: 3px;
-      background: var(--yellow);
-      border-radius: 2px;
-    }
-
-    /* Thumbnail clicável — iframe carrega só ao clicar (evita Erro 153) */
     .vid-thumb {
       position: relative;
       width: 100%;
@@ -333,217 +529,7 @@
       border: none;
     }
 
-    /* ── PREÇO ── */
-    .price-card {
-      background: var(--navy);
-      border-radius: var(--r-xl);
-      padding: 15px 20px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 14px;
-      margin-bottom: 16px;
-      box-shadow: var(--s-sm);
-    }
-
-    .price-num {
-      display: flex;
-      align-items: baseline;
-      gap: 1px;
-    }
-
-    .price-cur {
-      font-size: 15px;
-      font-weight: 800;
-      color: var(--yellow);
-    }
-
-    .price-val {
-      font-size: 34px;
-      font-weight: 900;
-      color: var(--yellow);
-      line-height: 1;
-    }
-
-    .price-unit {
-      font-size: 11px;
-      font-weight: 600;
-      color: #7A8098;
-      margin-top: 3px;
-    }
-
-    .price-desc {
-      font-size: 12px;
-      font-weight: 500;
-      color: #7A8098;
-      text-align: right;
-      line-height: 1.4;
-    }
-
-    .price-desc strong {
-      color: var(--yellow);
-      font-weight: 700;
-    }
-
-    /* ── POLL ── */
-    .poll-card {
-      padding: 20px;
-    }
-
-    .poll-q {
-      font-size: 16px;
-      font-weight: 800;
-      line-height: 1.3;
-      margin: 10px 0 16px;
-    }
-
-
-
-    /* Barra de resultado — sempre visível */
-    .poll-result {
-      margin-bottom: 16px;
-    }
-
-    .poll-bar-wrap {
-      background: var(--gray-ll);
-      border-radius: var(--r-pill);
-      height: 10px;
-      overflow: hidden;
-      margin-bottom: 7px;
-    }
-
-    .poll-bar-yes {
-      height: 100%;
-      background: var(--green);
-      border-radius: var(--r-pill);
-      width: 0%;
-      transition: width .7s ease;
-    }
-
-    .poll-stats {
-      display: flex;
-      justify-content: space-between;
-      font-size: 12px;
-      font-weight: 600;
-    }
-
-    .stat-yes {
-      color: var(--green);
-      font-weight: 800;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
-
-    .stat-yes svg {
-      width: 13px;
-      height: 13px;
-      stroke: var(--green);
-      fill: none;
-      stroke-width: 2.5;
-    }
-
-    .stat-total {
-      color: var(--gray);
-    }
-
-    /* Botões de voto */
-    .poll-btns {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-    }
-
-    .pbtn {
-      border: 2px solid transparent;
-      border-radius: var(--r-lg);
-      padding: 13px 8px;
-      font-family: var(--font);
-      font-size: 12px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: all var(--t);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      line-height: 1.3;
-      text-align: center;
-    }
-
-    .pbtn svg {
-      width: 16px;
-      height: 16px;
-      fill: none;
-      stroke: currentColor;
-      stroke-width: 2.5;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-      flex-shrink: 0;
-    }
-
-    /* Estado padrão */
-    .pbtn-yes {
-      background: var(--gray-ll);
-      color: var(--gray);
-      border-color: var(--gray-l);
-    }
-
-    .pbtn-no {
-      background: var(--gray-ll);
-      color: var(--gray);
-      border-color: var(--gray-l);
-    }
-
-    /* Estado selecionado */
-    .pbtn-yes.selected {
-      background: var(--green);
-      color: var(--white);
-      border-color: var(--green);
-      box-shadow: 0 4px 14px rgba(34, 197, 94, .3);
-    }
-
-    .pbtn-no.selected {
-      background: var(--navy);
-      color: var(--white);
-      border-color: var(--navy);
-    }
-
-    /* Hover quando não selecionado */
-    .pbtn-yes:not(.selected):hover {
-      background: var(--green-bg);
-      color: var(--green-dark);
-      border-color: var(--green);
-    }
-
-    .pbtn-no:not(.selected):hover {
-      background: var(--gray-l);
-      color: var(--navy);
-    }
-
-    .pbtn:disabled {
-      cursor: not-allowed;
-      opacity: .5;
-    }
-
-    /* Bloco de apoio */
-    .support-blk {
-      background: var(--yellow-bg);
-      border-left: 3px solid var(--yellow);
-      border-radius: 0 var(--r-md) var(--r-md) 0;
-      padding: 12px 14px;
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--navy);
-      line-height: 1.55;
-      margin-bottom: 16px;
-    }
-
-    .support-blk strong {
-      font-weight: 700;
-    }
-
-    /* ── FORMULÁRIO (aparece ao selecionar qualquer opção) ── */
+    /* ── FORMULÁRIO ── */
     .form-card {
       padding: 20px;
       display: none;
@@ -647,13 +633,7 @@
       font-weight: 400;
     }
 
-    .row2 {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-    }
-
-    /* Banner mostrando qual voto está selecionado */
+    /* Badge mostrando qual voto está selecionado */
     .vote-badge {
       display: flex;
       align-items: center;
@@ -927,15 +907,13 @@
       color: var(--navy);
     }
 
+    @media(min-width:700px) {
+      .wrap {
+        max-width: 680px;
+      }
+    }
+
     @media(max-width:400px) {
-      .row2 {
-        grid-template-columns: 1fr;
-      }
-
-      .poll-btns {
-        grid-template-columns: 1fr;
-      }
-
       .fab span {
         display: none;
       }
@@ -953,12 +931,6 @@
   <!-- HEADER -->
   <div class="hdr">
     <a href="https://mycond.com.br" target="_blank" class="hdr-logo">
-      <!--
-      LOGO: coloque o arquivo mycond-logo-h.png na mesma pasta do HTML no GitHub.
-      Ou passe via URL: ?logo=https://seusite.com/logo.png
-      O JavaScript abaixo lida com ambos os casos.
-    -->
-      <!-- Nome do arquivo: "Logo Branca e Amarela vazada.png" (na raiz do repo) -->
       <img id="logoImg" src="Logo%20Branca%20e%20Amarela%20vazada.png" alt="MyCond" height="30"
         onerror="this.style.display='none'; this.onerror=null;" />
     </a>
@@ -970,52 +942,19 @@
   <!-- CONTEÚDO -->
   <div class="wrap">
 
-    <!-- COLUNA ESQUERDA -->
-    <div class="col-left">
-
-      <!-- HERO -->
-      <div class="card">
-        <div class="tag">
+    <!-- ★ ENQUETE NO TOPO — HERO PRINCIPAL ★ -->
+    <div class="poll-hero">
+      <div class="poll-hero-inner">
+        <div class="poll-tag">
           <span id="prodIcon">📦</span>
           <span id="prodTag">Encomendas no condomínio</span>
         </div>
-        <div class="hero-body">
-          <p class="condo-eyebrow" id="condoEyebrow" style="display:none"></p>
-          <h1 class="hero-title" id="heroTitle"></h1>
-          <p class="hero-sub" id="heroSub"></p>
-        </div>
-        <ul class="benefits" id="benefitsList"></ul>
-      </div>
 
-      <!-- VÍDEO -->
-      <div class="card video-card">
-        <p class="sec-label">Veja como funciona</p>
-        <div id="vidContainer"></div>
-      </div>
+        <p class="poll-condo-name" id="condoEyebrow"></p>
+        <h1 class="poll-question" id="heroTitle"></h1>
+        <p class="poll-subtitle" id="heroSub"></p>
 
-      <!-- PREÇO -->
-      <div class="price-card">
-        <div>
-          <div class="price-num">
-            <span class="price-cur">R$</span>
-            <span class="price-val" id="priceVal">0,99</span>
-          </div>
-          <div class="price-unit" id="priceUnit">por unidade / mês</div>
-        </div>
-        <div class="price-desc" id="priceDesc">menos que <strong>1 café</strong><br>por morador</div>
-      </div>
-
-    </div>
-
-    <!-- COLUNA DIREITA -->
-    <div class="col-right">
-
-      <!-- POLL -->
-      <div class="card poll-card">
-        <p class="sec-label">Enquete</p>
-        <p class="poll-q" id="pollQ"></p>
-
-        <!-- Resultado sempre visível -->
+        <!-- Resultado da enquete — prova social -->
         <div class="poll-result">
           <div class="poll-bar-wrap">
             <div class="poll-bar-yes" id="pollBar"></div>
@@ -1027,20 +966,20 @@
               </svg>
               <span id="yesPct">0 votos</span>
             </span>
-            <span class="stat-total" id="totalStat">Seja o primeiro!</span>
+            <span class="stat-total" id="totalStat">Seja o primeiro a votar!</span>
           </div>
         </div>
 
         <!-- Bloco de apoio -->
         <div class="support-blk" id="supportBlk" style="display:none"></div>
 
-        <!-- Botões de voto (toggle antes de enviar) -->
+        <!-- Botões de voto — SIM grande, NÃO discreto -->
         <div class="poll-btns" id="pollBtns">
           <button class="pbtn pbtn-yes" id="btnYesEl" onclick="selectVote('yes')">
             <svg viewBox="0 0 24 24">
               <polyline points="20 6 9 17 4 12" />
             </svg>
-            <span id="btnYesLbl">Sim, quero ser avisado por WhatsApp</span>
+            <span id="btnYesLbl">Sim, quero essa melhoria!</span>
           </button>
           <button class="pbtn pbtn-no" id="btnNoEl" onclick="selectVote('no')">
             <svg viewBox="0 0 24 24">
@@ -1051,103 +990,122 @@
           </button>
         </div>
       </div>
+    </div>
 
-      <!-- FORMULÁRIO — aparece para qualquer voto selecionado -->
-      <div class="card form-card" id="formCard">
-        <div class="form-hdr">
-          <div class="form-ico">
-            <svg viewBox="0 0 24 24">
-              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-              <circle cx="12" cy="7" r="4" />
-            </svg>
-          </div>
-          <div class="form-hdr-text">
-            <h3>Registre seu apoio</h3>
-            <p>Informe seus dados para que o condomínio saiba quais moradores têm interesse nessa melhoria.</p>
-          </div>
-        </div>
-
-        <!-- Badge mostrando o voto atual (pode ser trocado voltando aos botões) -->
-        <div class="vote-badge" id="voteBadge">
-          <svg viewBox="0 0 24 24" id="badgeIcon"></svg>
-          <span id="badgeText"></span>
-        </div>
-
-        <form id="leadForm" onsubmit="submitForm(event)">
-          <input type="hidden" name="condominio" id="hCondo" />
-          <input type="hidden" name="produto" id="hProd" />
-          <input type="hidden" name="voto" id="hVoto" value="" />
-          <input type="hidden" name="preco_unidade" id="hPreco" />
-          <input type="hidden" name="utm_source" id="hSrc" />
-          <input type="hidden" name="utm_medium" id="hMed" />
-          <input type="hidden" name="utm_campaign" id="hCamp" />
-
-          <div class="fg">
-            <label class="fl" for="nome">Nome completo</label>
-            <input class="fi" type="text" id="nome" name="nome" placeholder="Seu nome" required autocomplete="name" />
-          </div>
-          <div class="row2">
-            <div class="fg">
-              <label class="fl" for="unidade">Unidade</label>
-              <input class="fi" type="text" id="unidade" name="unidade" placeholder="Ex: 302" required />
-            </div>
-            <div class="fg">
-              <label class="fl" for="bloco">Bloco / Torre <span
-                  style="font-weight:400;text-transform:none"></span></label>
-              <input class="fi" type="text" id="bloco" name="bloco" placeholder="Ex: B" />
-            </div>
-          </div>
-          <div class="fg">
-            <label class="fl" for="telefone">WhatsApp</label>
-            <input class="fi" type="tel" id="telefone" name="telefone" placeholder="(00) 00000-0000" required
-              autocomplete="tel" oninput="maskPhone(this)" />
-          </div>
-
-          <button class="btn-sub" type="submit" id="btnSub">
-            <svg viewBox="0 0 24 24">
-              <line x1="22" y1="2" x2="11" y2="13" />
-              <polygon points="22 2 15 22 11 13 2 9 22 2" fill="currentColor" stroke="none" />
-            </svg>
-            Confirmar minha participação
-          </button>
-          <p class="privacy">🔒 Dados usados apenas para esta consulta. Não são compartilhados com terceiros.</p>
-        </form>
-      </div>
-
-      <!-- OBRIGADO -->
-      <div class="state s-thanks" id="stThanks">
-        <div class="s-ico">
+    <!-- FORMULÁRIO — aparece para qualquer voto selecionado -->
+    <div class="card form-card" id="formCard">
+      <div class="form-hdr">
+        <div class="form-ico">
           <svg viewBox="0 0 24 24">
-            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-            <polyline points="22 4 12 14.01 9 11.01" />
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+            <circle cx="12" cy="7" r="4" />
           </svg>
         </div>
-        <h2 class="s-title">Participação <span class="em">confirmada!</span></h2>
-        <p class="s-text" style="margin-top:8px;">
-          Seu apoio foi registrado. A MyCond vai compartilhar o resultado da consulta com a gestão do condomínio.
-        </p>
-        <div class="share-area">
-          <p class="share-label">Convide outros moradores a votarem!</p>
-          <button class="btn-wa" onclick="shareWA()">
-            <svg viewBox="0 0 24 24">
-              <path
-                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
-              <path
-                d="M11.998 2C6.477 2 2 6.484 2 12.017c0 1.867.487 3.686 1.414 5.297L2 22l4.796-1.396A9.953 9.953 0 0 0 12 22c5.522 0 10-4.477 10-10S17.52 2 11.998 2z" />
-            </svg>
-            Compartilhar no WhatsApp
-          </button>
+        <div class="form-hdr-text">
+          <h3>Confirme sua participação</h3>
+          <p>Seus dados ficam registrados para que a gestão saiba quais moradores apoiam essa melhoria.</p>
         </div>
       </div>
 
-      <div class="proof">
-        <div class="proof-pill"><span class="dot"></span>+3.000 condomínios</div>
-        <div class="proof-pill"><span class="dot"></span>NPS 90</div>
-        <div class="proof-pill"><span class="dot"></span>WhatsApp nativo</div>
+      <!-- Badge mostrando o voto atual -->
+      <div class="vote-badge" id="voteBadge">
+        <svg viewBox="0 0 24 24" id="badgeIcon"></svg>
+        <span id="badgeText"></span>
       </div>
-      <div class="footer">powered by <span>mycond</span></div>
+
+      <form id="leadForm" onsubmit="submitForm(event)">
+        <input type="hidden" name="condominio" id="hCondo" />
+        <input type="hidden" name="produto" id="hProd" />
+        <input type="hidden" name="voto" id="hVoto" value="" />
+        <input type="hidden" name="preco_unidade" id="hPreco" />
+        <input type="hidden" name="utm_source" id="hSrc" />
+        <input type="hidden" name="utm_medium" id="hMed" />
+        <input type="hidden" name="utm_campaign" id="hCamp" />
+
+        <div class="fg">
+          <label class="fl" for="nome">Nome</label>
+          <input class="fi" type="text" id="nome" name="nome" placeholder="Seu nome" required autocomplete="name" />
+        </div>
+        <div class="fg">
+          <label class="fl" for="telefone">WhatsApp</label>
+          <input class="fi" type="tel" id="telefone" name="telefone" placeholder="(00) 00000-0000" required
+            autocomplete="tel" oninput="maskPhone(this)" />
+        </div>
+
+        <button class="btn-sub" type="submit" id="btnSub">
+          <svg viewBox="0 0 24 24">
+            <line x1="22" y1="2" x2="11" y2="13" />
+            <polygon points="22 2 15 22 11 13 2 9 22 2" fill="currentColor" stroke="none" />
+          </svg>
+          Confirmar minha participação
+        </button>
+        <p class="privacy">🔒 Dados usados apenas para esta consulta. Não compartilhamos com terceiros.</p>
+      </form>
+    </div>
+
+    <!-- OBRIGADO -->
+    <div class="state s-thanks" id="stThanks">
+      <div class="s-ico">
+        <svg viewBox="0 0 24 24">
+          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+          <polyline points="22 4 12 14.01 9 11.01" />
+        </svg>
+      </div>
+      <h2 class="s-title">Participação <span class="em">confirmada!</span></h2>
+      <p class="s-text" style="margin-top:8px;">
+        Seu apoio foi registrado. A MyCond vai compartilhar o resultado da consulta com a gestão do condomínio.
+      </p>
+      <div class="share-area">
+        <p class="share-label">Convide outros moradores a votarem!</p>
+        <button class="btn-wa" onclick="shareWA()">
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
+            <path
+              d="M11.998 2C6.477 2 2 6.484 2 12.017c0 1.867.487 3.686 1.414 5.297L2 22l4.796-1.396A9.953 9.953 0 0 0 12 22c5.522 0 10-4.477 10-10S17.52 2 11.998 2z" />
+          </svg>
+          Compartilhar no WhatsApp
+        </button>
+      </div>
+    </div>
+
+    <!-- CONTEÚDO SECUNDÁRIO (benefícios + vídeo/preço) -->
+    <div class="below-poll">
+
+      <!-- BENEFÍCIOS -->
+      <div class="card benefits-card">
+        <p class="sec-label">Por que aprovar?</p>
+        <ul class="benefits" id="benefitsList"></ul>
+      </div>
+
+      <!-- VÍDEO + PREÇO -->
+      <div>
+        <div class="card video-card">
+          <p class="sec-label">Veja como funciona</p>
+          <div id="vidContainer"></div>
+        </div>
+
+        <div class="price-card">
+          <div>
+            <div class="price-num">
+              <span class="price-cur">R$</span>
+              <span class="price-val" id="priceVal">0,99</span>
+            </div>
+            <div class="price-unit" id="priceUnit">por unidade / mês</div>
+          </div>
+          <div class="price-desc" id="priceDesc">menos que <strong>1 café</strong><br>por morador</div>
+        </div>
+      </div>
 
     </div>
+
+    <div class="proof">
+      <div class="proof-pill"><span class="dot"></span>+3.000 condomínios</div>
+      <div class="proof-pill"><span class="dot"></span>NPS 90</div>
+      <div class="proof-pill"><span class="dot"></span>WhatsApp nativo</div>
+    </div>
+    <div class="footer">powered by <span>mycond</span></div>
+
   </div>
 
   <!-- FAB -->
@@ -1163,60 +1121,63 @@
 
   <script>
     /* ─────────────────────────────────────────────
-       PRODUTOS
+       PRODUTOS — copy otimizada para conversão em SIM
     ─────────────────────────────────────────────── */
     const PRODUCTS = {
       encomendas: {
         icon: '📦', tag: 'Encomendas no condomínio',
-        title: '__CONDO__ pode ter uma forma mais rápida e segura de receber encomendas.',
-        sub: 'Você gostaria de ser avisado pelo WhatsApp sempre que uma encomenda chegar para você?',
+        title: 'Morador, quer receber aviso no WhatsApp quando sua encomenda chegar?',
+        titleCondo: 'Morador, quer receber aviso no WhatsApp quando sua encomenda chegar?',
+        sub: 'Com a IA de Encomendas da MyCond, a portaria tira uma foto da etiqueta, o sistema identifica o morador e o aviso chega direto no WhatsApp. Vote e mostre seu apoio!',
         poll: 'Você apoia essa melhoria no __CONDO__?',
         support: null,
         btnYes: 'Sim, quero ser avisado por WhatsApp',
-        btnNo: 'Agora não, o condomínio não tem muitas encomendas',
+        btnNo: 'Não, não temos muitas encomendas',
         videoId: 'foP6Hh7LpNc',
         benefits: [
-          'Aviso pelo <strong>WhatsApp assim que a encomenda chega</strong>',
-          '<strong>Menos demora na retirada</strong> e menos fila na portaria',
-          'Registro com <strong>foto da etiqueta</strong>, data, horário e unidade',
-          '<strong>Mais segurança</strong> contra perda, troca ou entrega errada',
-          'Retirada com <strong>confirmação por assinatura ou senha</strong>',
+          '<strong>Aviso no WhatsApp assim que chegar</strong> — Você sabe na hora e retira mais rápido.',
+          '<strong>Menos fila na portaria</strong> — A retirada fica mais simples para moradores e porteiros.',
+          '<strong>Tudo registrado com foto e horário</strong> — Mais rastreabilidade sobre cada encomenda.',
+          '<strong>Mais segurança contra perdas e trocas</strong> — Menos risco de erro na entrega.',
+          '<strong>Confirmação por assinatura ou senha</strong> — Sem depender de livro de protocolo.',
         ],
         priceUnit: 'por unidade / mês',
         priceDesc: 'menos que <strong>1 café</strong><br>por morador',
       },
       reservas: {
         icon: '🏊', tag: 'Reservas de Áreas Comuns',
-        title: '__CONDO__ pode modernizar as reservas de áreas comuns.',
-        sub: 'Você gostaria de reservar a piscina ou o salão pelo WhatsApp, sem ligar para ninguém?',
+        title: 'Seus moradores querem reservar áreas comuns de forma simples e rápida?',
+        titleCondo: 'O __CONDO__ pode modernizar as reservas de áreas comuns.',
+        sub: 'Imagine reservar a piscina ou o salão pelo WhatsApp, sem ligar para ninguém. Vote e ajude a trazer essa melhoria!',
         poll: 'Você apoia essa melhoria no __CONDO__?',
         support: 'Com a plataforma da <strong>MyCond</strong>, o morador vê a agenda, as regras e faz a reserva pelo WhatsApp — sem precisar acionar o síndico.',
-        btnYes: 'Sim, quero reservar pelo WhatsApp',
-        btnNo: 'Prefiro o processo atual',
+        btnYes: 'Sim, quero reservar pelo WhatsApp!',
+        btnNo: 'Agora não',
         videoId: '',
         benefits: [
-          'Reserve pelo <strong>WhatsApp, 24 horas por dia</strong>',
+          'Reserve pelo <strong>WhatsApp, 24 horas por dia</strong> — sem depender de ninguém',
           '<strong>Sem conflito de horários</strong> — agenda online visível a todos',
-          '<strong>Sem ligar para o síndico</strong> — regras automáticas',
-          'Confirmação e lembrete direto no celular',
+          '<strong>Sem ligar para o síndico</strong> — regras automáticas e confirmação na hora',
+          'Lembrete automático direto no celular antes da reserva',
         ],
         priceUnit: 'por unidade / mês',
         priceDesc: 'menos que <strong>1 café</strong><br>por morador',
       },
       myia: {
         icon: '🤖', tag: 'MYIA — Atendimento com IA',
-        title: '__CONDO__ pode ter atendimento por IA 24h no WhatsApp.',
-        sub: 'Reservas, ocorrências, boletos e encomendas — tudo resolvido sem esperar o síndico.',
+        title: 'Seus moradores querem resolver demandas do condomínio 24h, sem esperar?',
+        titleCondo: 'O __CONDO__ pode ter atendimento por IA 24h no WhatsApp.',
+        sub: 'Reservas, ocorrências, boletos e encomendas — tudo resolvido no WhatsApp, a qualquer hora. Vote a favor!',
         poll: 'Você apoia essa melhoria no __CONDO__?',
         support: 'A <strong>MYIA da MyCond</strong> resolve até 90% das demandas dos moradores automaticamente, por texto ou áudio, sem intervenção humana.',
-        btnYes: 'Sim, quero esse atendimento',
-        btnNo: 'Prefiro o atendimento atual',
+        btnYes: 'Sim, quero esse atendimento!',
+        btnNo: 'Agora não',
         videoId: '',
         benefits: [
-          '<strong>Atendimento 24h</strong> no WhatsApp — fins de semana e feriados',
-          'Faz reservas, registra ocorrências e envia boletos',
+          '<strong>Atendimento 24h</strong> no WhatsApp — fins de semana e feriados inclusos',
+          'Faz reservas, registra ocorrências e envia boletos sem espera',
           '<strong>90% das demandas</strong> resolvidas sem intervenção humana',
-          'Responde por texto ou áudio',
+          'Responde por texto ou áudio — simples para qualquer morador',
         ],
         priceUnit: 'por unidade / mês',
         priceDesc: 'menos que <strong>1 café</strong><br>por morador',
@@ -1225,8 +1186,6 @@
 
     /* ─────────────────────────────────────────────
        ENDPOINT
-       Substitua pela URL do seu Google Apps Script
-       (veja o arquivo google-sheet-script.js)
     ─────────────────────────────────────────────── */
     const FORM_ENDPOINT = 'https://script.google.com/macros/s/AKfycby3OOLQSFDfF50kNDtMrb_x0q7Iz_ZNCqtMGYqk2YaRSkIpoA7oVC--5THjBKGlQHRgAg/exec';
 
@@ -1240,7 +1199,7 @@
       const prod = p.get('p') || p.get('produto') || 'encomendas';
       const preco = p.get('preco') || p.get('v') || '';
       const yt = p.get('yt') || '';
-      const logo = p.get('logo') || '';        // URL externa da logo (opcional)
+      const logo = p.get('logo') || '';
 
       const cfg = PRODUCTS[prod] || PRODUCTS.encomendas;
       const pollKey = prod + '_' + (condo || 'geral').toLowerCase().replace(/\W+/g, '_');
@@ -1249,7 +1208,7 @@
       window._prod = prod;
       window._preco = preco;
 
-      // Logo: parâmetro ?logo= sobrescreve o arquivo local
+      // Logo
       if (logo) document.getElementById('logoImg').src = logo;
 
       // Hidden fields
@@ -1273,9 +1232,12 @@
 
       document.getElementById('prodIcon').textContent = cfg.icon;
       document.getElementById('prodTag').textContent = cfg.tag;
-      document.getElementById('heroTitle').innerHTML = (cfg.title || '').replace('__CONDO__', bold);
+
+      // Título: usa versão com nome do condo se disponível
+      const titleTemplate = condo && cfg.titleCondo ? cfg.titleCondo : cfg.title;
+      document.getElementById('heroTitle').innerHTML = titleTemplate.replace('__CONDO__', bold);
+
       document.getElementById('heroSub').textContent = cfg.sub;
-      document.getElementById('pollQ').innerHTML = (cfg.poll || '').replace('__CONDO__', escHtml(plain));
       document.getElementById('btnYesLbl').textContent = cfg.btnYes;
       document.getElementById('btnNoLbl').textContent = cfg.btnNo;
 
@@ -1294,7 +1256,7 @@
         ul.appendChild(li);
       });
 
-      // Vídeo: thumbnail clicável (não carrega iframe diretamente — evita Erro 153)
+      // Vídeo
       const videoId = yt || cfg.videoId || '';
       buildVideo(videoId);
 
@@ -1323,8 +1285,7 @@
     }
 
     /* ─────────────────────────────────────────────
-       VÍDEO — thumbnail clicável, iframe só ao clicar
-       Resolve o Erro 153 (embedding restrictions)
+       VÍDEO
     ─────────────────────────────────────────────── */
     function buildVideo(videoId) {
       const container = document.getElementById('vidContainer');
@@ -1342,7 +1303,6 @@
         return;
       }
 
-      // Thumbnail via YouTube API (funciona mesmo para Shorts)
       const thumb = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
       const ytUrl = `https://www.youtube.com/watch?v=${videoId}`;
 
@@ -1362,7 +1322,6 @@
     }
 
     function loadVideo(videoId, thumbEl) {
-      // Substituir thumbnail pelo iframe ao clicar
       const wrap = document.createElement('div');
       wrap.className = 'vid-wrap';
       wrap.innerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1&playsinline=1"
@@ -1374,9 +1333,7 @@
     }
 
     /* ─────────────────────────────────────────────
-       POLL — resultado por condomínio (pollKey único)
-       Dados em localStorage: privados ao dispositivo
-       Dados reais: Google Sheets via Apps Script
+       POLL
     ─────────────────────────────────────────────── */
     function getPoll(key) {
       try { return JSON.parse(localStorage.getItem('mc_p_' + key) || '{"yes":0,"no":0}'); }
@@ -1434,7 +1391,7 @@
         document.getElementById('totalStat').textContent = total + (total === 1 ? ' voto' : ' votos');
       } else {
         document.getElementById('yesPct').textContent = '0 votos';
-        document.getElementById('totalStat').textContent = 'Seja o primeiro!';
+        document.getElementById('totalStat').textContent = 'Seja o primeiro a votar!';
       }
     }
 
@@ -1466,19 +1423,16 @@
     }
 
     /* ─────────────────────────────────────────────
-       SELEÇÃO DE VOTO (toggle antes de enviar)
+       SELEÇÃO DE VOTO
     ─────────────────────────────────────────────── */
     function selectVote(choice) {
-      // Atualizar visual dos botões
       const btnY = document.getElementById('btnYesEl');
       const btnN = document.getElementById('btnNoEl');
       btnY.classList.toggle('selected', choice === 'yes');
       btnN.classList.toggle('selected', choice === 'no');
 
-      // Atualizar hidden field
       document.getElementById('hVoto').value = choice;
 
-      // Atualizar badge no formulário
       const badge = document.getElementById('voteBadge');
       const icon = document.getElementById('badgeIcon');
       const txt = document.getElementById('badgeText');
@@ -1487,15 +1441,14 @@
         badge.className = 'vote-badge yes';
         icon.setAttribute('viewBox', '0 0 24 24');
         icon.innerHTML = '<polyline points="20 6 9 17 4 12"/>';
-        txt.textContent = 'Você escolheu: Sim, quero ser avisado';
+        txt.textContent = 'Você votou: Sim, quero ser avisado por WhatsApp';
       } else {
         badge.className = 'vote-badge no';
         icon.setAttribute('viewBox', '0 0 24 24');
         icon.innerHTML = '<line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>';
-        txt.textContent = 'Você escolheu: Agora não';
+        txt.textContent = 'Você votou: Não, não temos muitas encomendas';
       }
 
-      // Mostrar formulário
       const fc = document.getElementById('formCard');
       fc.classList.add('show');
       setTimeout(() => fc.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 250);
@@ -1513,14 +1466,6 @@
       btn.disabled = true;
       btn.innerHTML = '<span style="opacity:.6">Enviando...</span>';
 
-      // Contabilizar localmente
-      //const key = window._pollKey;
-      //const d   = getPoll(key);
-      //d[voto]++;
-      //savePoll(key, d);
-      //renderPoll(key);
-
-      // Travar botões de voto
       document.getElementById('btnYesEl').disabled = true;
       document.getElementById('btnNoEl').disabled = true;
 
@@ -1575,8 +1520,7 @@
       sp.set('utm_medium', 'morador');
 
       const url = window.location.origin + window.location.pathname + '?' + sp.toString();
-      const nome = condo ? `o *${condo}*` : 'nosso condomínio';
-      const msg = `Oi! ${nome} está consultando os moradores sobre uma melhoria nas encomendas — um sistema que avisa no WhatsApp quando o pacote chega. 📦\n\nVote aqui e ajude a mostrar para a gestão que os moradores querem essa melhoria:\n${url}`;
+      const msg = `📦 Encomenda chegou? Você pode ser avisado na hora pelo WhatsApp.\n\nA gestão está consultando os moradores sobre uma solução da MyCond que deixa a entrega de encomendas mais rápida, segura e rastreável.\n\nVote e ajude a trazer essa melhoria para o condomínio:\n${url}`;
 
       window.open('https://wa.me/?text=' + encodeURIComponent(msg), '_blank');
     }
