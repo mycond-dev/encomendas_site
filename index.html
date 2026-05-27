@@ -1,0 +1,1192 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Consulta aos Moradores — MyCond</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ============================================================
+       DESIGN TOKENS — MyCond
+    ============================================================ */
+    :root {
+      --color-yellow:        #FDC600;
+      --color-yellow-dark:   #D4A500;
+      --color-yellow-light:  #FFF8D6;
+      --color-navy:          #1B1F36;
+      --color-navy-light:    #252A4A;
+      --color-navy-lighter:  #2E3460;
+      --color-gray:          #9B9A9A;
+      --color-gray-light:    #E8E8E8;
+      --color-gray-lighter:  #F5F5F5;
+      --color-white:         #FFFFFF;
+
+      --font-primary: 'Montserrat', sans-serif;
+      --radius-sm: 4px; --radius-md: 8px; --radius-lg: 16px;
+      --radius-xl: 24px; --radius-pill: 999px; --radius-circle: 50%;
+      --shadow-sm: 0 2px 8px rgba(27,31,54,.10);
+      --shadow-md: 0 4px 16px rgba(27,31,54,.15);
+      --shadow-lg: 0 8px 32px rgba(27,31,54,.20);
+      --transition-fast: 150ms ease;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-primary);
+      background: #ECEEF5;
+      color: var(--color-navy);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ============================================================
+       PÁGINA: MOBILE FIRST → desktop side-by-side
+    ============================================================ */
+    .page-outer {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Header fixo */
+    .header {
+      background: var(--color-navy);
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 12px rgba(0,0,0,.25);
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+
+    .header-logo img {
+      height: 32px;
+      width: auto;
+      display: block;
+    }
+
+    /* Fallback texto se imagem não carregar */
+    .logo-fallback {
+      display: none;
+      font-weight: 900;
+      font-size: 18px;
+      color: var(--color-white);
+      letter-spacing: 0.01em;
+    }
+    .logo-fallback span { color: var(--color-yellow); }
+
+    .header-sep { width: 1px; height: 22px; background: var(--color-navy-lighter); flex-shrink: 0; }
+
+    .header-condo {
+      font-size: 13px;
+      font-weight: 600;
+      color: #7A8098;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .yellow-bar { width: 100%; height: 4px; background: var(--color-yellow); flex-shrink: 0; }
+
+    /* Conteúdo principal */
+    .page-content {
+      flex: 1;
+      max-width: 1100px;
+      margin: 0 auto;
+      width: 100%;
+      padding: 20px 16px 48px;
+    }
+
+    /* LAYOUT DESKTOP: duas colunas */
+    @media (min-width: 900px) {
+      .page-content {
+        padding: 36px 32px 64px;
+        display: grid;
+        grid-template-columns: 1fr 420px;
+        gap: 28px;
+        align-items: start;
+      }
+      /* Coluna da esquerda: info do produto */
+      .col-left  { display: contents; }
+      /* Coluna direita: poll + form */
+      .col-right { display: contents; }
+    }
+
+    /* ============================================================
+       CARD BASE
+    ============================================================ */
+    .card {
+      background: var(--color-white);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+    }
+
+    /* ============================================================
+       HERO CARD (coluna esquerda no desktop)
+    ============================================================ */
+    .hero-card {
+      margin-bottom: 16px;
+    }
+
+    @media (min-width: 900px) {
+      .hero-card { grid-column: 1; grid-row: 1; margin-bottom: 0; }
+    }
+
+    .product-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--color-yellow-light);
+      color: var(--color-navy);
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 5px 12px;
+      border-radius: var(--radius-pill);
+      margin: 20px 20px 0;
+    }
+
+    .hero-body { padding: 14px 20px 0; }
+
+    .condo-name {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--color-yellow-dark);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 6px;
+    }
+
+    .hero-title {
+      font-size: clamp(20px, 4vw, 26px);
+      font-weight: 900;
+      line-height: 1.2;
+      color: var(--color-navy);
+      margin-bottom: 6px;
+    }
+
+    .hero-sub {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--color-gray);
+      line-height: 1.5;
+      margin-bottom: 18px;
+    }
+
+    /* Benefícios */
+    .benefits-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 11px;
+      padding: 0 20px 20px;
+    }
+
+    .benefit-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--color-navy);
+      line-height: 1.4;
+    }
+
+    .benefit-check {
+      flex-shrink: 0;
+      width: 22px;
+      height: 22px;
+      background: var(--color-yellow);
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 1px;
+    }
+
+    .benefit-check svg { width: 12px; height: 12px; stroke: var(--color-navy); stroke-width: 3; fill: none; }
+
+    /* ============================================================
+       VÍDEO CARD (coluna esquerda, abaixo do hero)
+    ============================================================ */
+    .video-card {
+      margin-bottom: 16px;
+      padding: 16px;
+    }
+
+    @media (min-width: 900px) {
+      .video-card { grid-column: 1; grid-row: 2; margin-bottom: 0; }
+    }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--color-gray);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .section-label::before {
+      content: '';
+      display: inline-block;
+      width: 12px;
+      height: 3px;
+      background: var(--color-yellow);
+      border-radius: 2px;
+    }
+
+    .video-wrapper {
+      position: relative;
+      width: 100%;
+      padding-bottom: 56.25%;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      background: var(--color-navy);
+    }
+
+    .video-wrapper iframe {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      border: none;
+    }
+
+    .video-placeholder {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .play-btn {
+      width: 52px; height: 52px;
+      background: var(--color-yellow);
+      border-radius: var(--radius-circle);
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    .play-btn svg { width: 22px; height: 22px; fill: var(--color-navy); margin-left: 3px; }
+
+    .video-placeholder p {
+      font-size: 13px;
+      font-weight: 600;
+      color: #7A8098;
+      text-align: center;
+    }
+
+    /* ============================================================
+       PREÇO (coluna esquerda, abaixo do vídeo)
+    ============================================================ */
+    .price-card {
+      background: var(--color-navy);
+      border-radius: var(--radius-xl);
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 16px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    @media (min-width: 900px) {
+      .price-card { grid-column: 1; grid-row: 3; margin-bottom: 0; }
+    }
+
+    .price-main { display: flex; align-items: baseline; gap: 2px; }
+
+    .price-currency {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--color-yellow);
+      margin-top: 4px;
+    }
+
+    .price-amount {
+      font-size: 36px;
+      font-weight: 900;
+      color: var(--color-yellow);
+      line-height: 1;
+    }
+
+    .price-unit {
+      font-size: 12px;
+      font-weight: 600;
+      color: #7A8098;
+      margin-top: 4px;
+    }
+
+    .price-desc {
+      font-size: 13px;
+      font-weight: 500;
+      color: #7A8098;
+      line-height: 1.4;
+      text-align: right;
+    }
+
+    .price-desc strong { color: var(--color-yellow); font-weight: 700; }
+
+    /* ============================================================
+       POLL CARD (coluna direita no desktop)
+    ============================================================ */
+    .poll-card {
+      padding: 20px;
+      margin-bottom: 16px;
+    }
+
+    @media (min-width: 900px) {
+      .poll-card { grid-column: 2; grid-row: 1; position: sticky; top: 80px; margin-bottom: 16px; }
+    }
+
+    .poll-question {
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--color-navy);
+      line-height: 1.3;
+      margin: 12px 0 18px;
+    }
+
+    .poll-buttons { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+    .poll-btn {
+      border: none;
+      border-radius: var(--radius-lg);
+      padding: 14px 10px;
+      font-family: var(--font-primary);
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .poll-btn svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+
+    .btn-yes { background: var(--color-yellow); color: var(--color-navy); }
+    .btn-yes:hover { background: var(--color-yellow-dark); box-shadow: 0 4px 14px rgba(253,198,0,.4); transform: translateY(-1px); }
+
+    .btn-no  { background: var(--color-gray-lighter); color: var(--color-gray); border: 1.5px solid var(--color-gray-light); }
+    .btn-no:hover  { background: var(--color-gray-light); color: var(--color-navy); transform: translateY(-1px); }
+
+    /* Resultado — hidden antes de votar */
+    .poll-result { margin-top: 16px; display: none; }
+    .poll-result.show { display: block; }
+
+    .poll-bar-wrap { background: var(--color-gray-lighter); border-radius: var(--radius-pill); height: 8px; overflow: hidden; margin-bottom: 8px; }
+    .poll-bar { height: 100%; background: var(--color-yellow); border-radius: var(--radius-pill); width: 0%; transition: width .8s ease; }
+    .poll-stats { display: flex; justify-content: space-between; font-size: 12px; font-weight: 600; }
+    .poll-stats .yes-pct { color: var(--color-navy); font-weight: 800; }
+    .poll-stats .total { color: var(--color-gray); }
+
+    /* ============================================================
+       FORM CARD (coluna direita, abaixo do poll no desktop)
+    ============================================================ */
+    .form-card {
+      padding: 20px;
+      margin-bottom: 16px;
+      display: none;
+    }
+
+    .form-card.show { display: block; animation: slideUp .3s ease; }
+
+    @media (min-width: 900px) {
+      .form-card { grid-column: 2; grid-row: 2; }
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .form-header { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+
+    .form-icon {
+      width: 38px; height: 38px;
+      background: var(--color-yellow);
+      border-radius: var(--radius-md);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .form-icon svg { width: 18px; height: 18px; stroke: var(--color-navy); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+    .form-header-text h3 { font-size: 14px; font-weight: 800; color: var(--color-navy); }
+    .form-header-text p  { font-size: 12px; font-weight: 500; color: var(--color-gray); margin-top: 2px; }
+
+    .form-group { margin-bottom: 12px; }
+
+    .form-label {
+      display: block;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--color-gray);
+      margin-bottom: 5px;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 11px 13px;
+      border: 1.5px solid var(--color-gray-light);
+      border-radius: var(--radius-md);
+      font-family: var(--font-primary);
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--color-navy);
+      background: var(--color-white);
+      transition: border-color var(--transition-fast);
+      outline: none;
+      -webkit-appearance: none;
+    }
+
+    .form-input:focus { border-color: var(--color-yellow); box-shadow: 0 0 0 3px rgba(253,198,0,.15); }
+    .form-input::placeholder { color: var(--color-gray); font-weight: 400; }
+
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+    .btn-submit {
+      width: 100%;
+      padding: 14px;
+      background: var(--color-navy);
+      color: var(--color-white);
+      border: none;
+      border-radius: var(--radius-lg);
+      font-family: var(--font-primary);
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 6px;
+    }
+
+    .btn-submit svg { width: 17px; height: 17px; stroke: var(--color-yellow); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .btn-submit:hover { background: var(--color-navy-light); transform: translateY(-1px); box-shadow: var(--shadow-md); }
+
+    .form-privacy { font-size: 11px; color: var(--color-gray); text-align: center; margin-top: 10px; line-height: 1.5; }
+
+    /* ============================================================
+       ESTADOS: OBRIGADO / VOTOU NÃO
+    ============================================================ */
+    .state-card {
+      border-radius: var(--radius-xl);
+      padding: 28px 20px;
+      text-align: center;
+      margin-bottom: 16px;
+      display: none;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .state-card.show { display: block; animation: slideUp .4s ease; }
+
+    .state-thanks { background: var(--color-navy); }
+    .state-no     { background: var(--color-white); border: 1.5px solid var(--color-gray-light); }
+
+    @media (min-width: 900px) {
+      .state-thanks { grid-column: 2; grid-row: 1 / span 2; align-self: start; }
+      .state-no     { grid-column: 2; grid-row: 1; }
+    }
+
+    .state-icon {
+      width: 60px; height: 60px;
+      border-radius: var(--radius-circle);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 14px;
+    }
+
+    .state-icon svg { width: 28px; height: 28px; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; fill: none; }
+
+    .state-thanks .state-icon { background: var(--color-yellow); }
+    .state-thanks .state-icon svg { stroke: var(--color-navy); }
+    .state-no .state-icon { background: var(--color-gray-lighter); }
+    .state-no .state-icon svg { stroke: var(--color-gray); }
+
+    .state-title { font-size: 20px; font-weight: 900; line-height: 1.2; margin-bottom: 8px; }
+    .state-thanks .state-title { color: var(--color-white); }
+    .state-thanks .state-title .em { color: var(--color-yellow); }
+    .state-no .state-title { color: var(--color-navy); font-size: 16px; }
+
+    .state-text { font-size: 14px; font-weight: 500; line-height: 1.55; }
+    .state-thanks .state-text { color: #7A8098; }
+    .state-no .state-text { color: var(--color-gray); }
+
+    /* ============================================================
+       FOOTER SOCIAL PROOF
+    ============================================================ */
+    .social-proof {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin: 4px 0;
+      flex-wrap: wrap;
+    }
+
+    .proof-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: var(--color-white);
+      border: 1px solid var(--color-gray-light);
+      border-radius: var(--radius-pill);
+      padding: 6px 14px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--color-navy);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .proof-dot { width: 6px; height: 6px; background: var(--color-yellow); border-radius: 50%; }
+
+    @media (min-width: 900px) {
+      .social-proof { grid-column: 1 / -1; }
+    }
+
+    .footer-brand {
+      text-align: center;
+      padding: 8px;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--color-gray);
+      letter-spacing: 0.05em;
+    }
+
+    .footer-brand span { color: var(--color-navy); }
+
+    @media (min-width: 900px) {
+      .footer-brand { grid-column: 1 / -1; }
+    }
+
+    /* ============================================================
+       BLOCO DE APOIO (antes da enquete)
+    ============================================================ */
+    .support-block {
+      background: var(--color-yellow-light);
+      border-left: 3px solid var(--color-yellow);
+      border-radius: 0 var(--radius-md) var(--radius-md) 0;
+      padding: 12px 14px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--color-navy);
+      line-height: 1.55;
+    }
+
+    .support-block strong { font-weight: 700; }
+
+    /* ============================================================
+       COMPARTILHAMENTO
+    ============================================================ */
+    .share-invite {
+      margin-top: 20px;
+      padding-top: 18px;
+      border-top: 1px solid var(--color-navy-lighter);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .share-invite-text {
+      font-size: 13px;
+      font-weight: 600;
+      color: #7A8098;
+    }
+
+    .btn-share-wa {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #25D366;
+      color: #fff;
+      border: none;
+      border-radius: var(--radius-pill);
+      padding: 12px 24px;
+      font-family: var(--font-primary);
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      box-shadow: 0 3px 12px rgba(37,211,102,.35);
+    }
+
+    .btn-share-wa:hover { background: #1EBD5A; transform: translateY(-1px); box-shadow: 0 5px 16px rgba(37,211,102,.45); }
+    .btn-share-wa svg { width: 20px; height: 20px; flex-shrink: 0; }
+
+    /* Botão flutuante de compartilhar (sempre visível) */
+    .fab-share {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #25D366;
+      color: #fff;
+      border: none;
+      border-radius: var(--radius-pill);
+      padding: 12px 18px 12px 14px;
+      font-family: var(--font-primary);
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 4px 18px rgba(37,211,102,.45);
+      transition: all var(--transition-fast);
+    }
+
+    .fab-share:hover { transform: translateY(-2px); box-shadow: 0 6px 22px rgba(37,211,102,.55); }
+    .fab-share svg { width: 20px; height: 20px; flex-shrink: 0; }
+
+    /* ocultar fab após confirmação */
+    .fab-share.hidden { display: none; }
+
+    /* ============================================================
+       MOBILE TWEAKS
+    ============================================================ */
+    @media (max-width: 400px) {
+      .form-row { grid-template-columns: 1fr; }
+      .hero-title { font-size: 19px; }
+      .fab-share span { display: none; }
+      .fab-share { padding: 13px; border-radius: var(--radius-circle); }
+    }
+  </style>
+</head>
+<body>
+
+<div class="page-outer">
+
+  <!-- HEADER -->
+  <div class="header">
+    <a class="header-logo" href="https://mycond.com.br" target="_blank">
+      <img src="mycond-icon.png" alt="MyCond" onerror="this.style.display='none'; document.querySelector('.logo-fallback').style.display='flex';" />
+      <span class="logo-fallback">my<span>cond</span></span>
+    </a>
+    <div class="header-sep"></div>
+    <span class="header-condo" id="condoName">Consulta aos Moradores</span>
+  </div>
+  <div class="yellow-bar"></div>
+
+  <!-- CONTEÚDO -->
+  <div class="page-content">
+
+    <!-- ===== HERO CARD ===== -->
+    <div class="card hero-card">
+      <div class="product-tag">
+        <span id="productIcon">📦</span>
+        <span id="productTagText">Encomendas no condomínio</span>
+      </div>
+
+      <div class="hero-body">
+        <p class="condo-name" id="condoNameHero"></p>
+        <h1 class="hero-title" id="heroTitle">Gestão inteligente de encomendas chegou ao seu condomínio</h1>
+        <p class="hero-sub" id="heroSub">Diga adeus ao livro de protocolo e ao WhatsApp do porteiro. De agora em diante, sua encomenda chega até você de um jeito mais rápido, seguro e sem estresse.</p>
+      </div>
+
+      <ul class="benefits-list" id="benefitsList"></ul>
+    </div>
+
+    <!-- ===== VÍDEO CARD ===== -->
+    <div class="card video-card">
+      <p class="section-label">Veja como funciona</p>
+      <div class="video-wrapper" id="videoWrapper"></div>
+    </div>
+
+    <!-- ===== PREÇO CARD ===== -->
+    <div class="price-card" id="priceCard">
+      <div>
+        <div class="price-main">
+          <span class="price-currency">R$</span>
+          <span class="price-amount" id="priceAmount">0,99</span>
+        </div>
+        <div class="price-unit" id="priceUnit">por unidade / mês</div>
+      </div>
+      <div class="price-desc" id="priceDesc">menos que <strong>1 café</strong><br>por morador</div>
+    </div>
+
+    <!-- ===== POLL CARD ===== -->
+    <div class="card poll-card" id="pollCard">
+      <p class="section-label">Enquete</p>
+      <p class="poll-question" id="pollQuestion">Você quer ser avisado pelo WhatsApp quando sua encomenda chegar?</p>
+
+      <!-- Bloco de apoio (copy explicativa antes dos botões) -->
+      <div class="support-block-wrap" style="display:none; margin-bottom:16px;">
+        <div class="support-block">
+          <p id="supportBlock"></p>
+        </div>
+      </div>
+
+      <div class="poll-buttons" id="pollButtons">
+        <button class="poll-btn btn-yes" onclick="vote('yes')">
+          <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+          <span id="btnYesLabel">Sim, quero!</span>
+        </button>
+        <button class="poll-btn btn-no" onclick="vote('no')">
+          <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          <span id="btnNoLabel">Agora não</span>
+        </button>
+      </div>
+
+      <!-- Resultado: APENAS visível após votar -->
+      <div class="poll-result" id="pollResult">
+        <div class="poll-bar-wrap"><div class="poll-bar" id="pollBar"></div></div>
+        <div class="poll-stats">
+          <span class="yes-pct" id="yesPct"></span>
+          <span class="total" id="totalVotes"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== FORMULÁRIO (aparece só após votar SIM) ===== -->
+    <div class="card form-card" id="formCard">
+      <div class="form-header">
+        <div class="form-icon">
+          <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </div>
+        <div class="form-header-text">
+          <h3>Registre seu apoio</h3>
+          <p>Informe seus dados para que o condomínio saiba quais moradores têm interesse nessa melhoria.</p>
+        </div>
+      </div>
+
+      <form id="leadForm" onsubmit="submitForm(event)">
+        <input type="hidden" name="condominio"    id="hCondo" />
+        <input type="hidden" name="produto"       id="hProduto" />
+        <input type="hidden" name="voto"          value="sim" />
+        <input type="hidden" name="utm_source"    id="hUtmSource" />
+        <input type="hidden" name="utm_medium"    id="hUtmMedium" />
+        <input type="hidden" name="utm_campaign"  id="hUtmCampaign" />
+
+        <div class="form-group">
+          <label class="form-label" for="nome">Nome completo</label>
+          <input class="form-input" type="text" id="nome" name="nome" placeholder="Seu nome" required autocomplete="name" />
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="unidade">Unidade</label>
+            <input class="form-input" type="text" id="unidade" name="unidade" placeholder="Ex: 302" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="bloco">Bloco / Torre</label>
+            <input class="form-input" type="text" id="bloco" name="bloco" placeholder="Ex: B" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="telefone">WhatsApp</label>
+          <input class="form-input" type="tel" id="telefone" name="telefone" placeholder="(00) 00000-0000" required autocomplete="tel" oninput="maskPhone(this)" />
+        </div>
+
+        <button class="btn-submit" type="submit" id="submitBtn">
+          <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2" fill="currentColor" stroke="none"/></svg>
+          Confirmar minha participação
+        </button>
+
+        <p class="form-privacy">🔒 Dados usados apenas para esta consulta. Não são compartilhados com terceiros.</p>
+      </form>
+    </div>
+
+    <!-- ===== ESTADO: OBRIGADO ===== -->
+    <div class="state-card state-thanks" id="stateThankYou">
+      <div class="state-icon">
+        <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+      </div>
+      <h2 class="state-title">Participação <span class="em">confirmada!</span></h2>
+      <p class="state-text" style="margin-top:8px;">
+        Seu apoio foi registrado. A MyCond vai compartilhar o resultado da consulta com a gestão do condomínio.
+      </p>
+
+      <!-- Convite para compartilhar -->
+      <div class="share-invite">
+        <p class="share-invite-text">Convide outros moradores a votarem também!</p>
+        <button class="btn-share-wa" id="btnShareWa" onclick="shareWhatsApp()">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M11.998 2C6.477 2 2 6.484 2 12.017c0 1.867.487 3.686 1.414 5.297L2 22l4.796-1.396A9.953 9.953 0 0 0 12 22c5.522 0 10-4.477 10-10S17.52 2 11.998 2z"/></svg>
+          Compartilhar no WhatsApp
+        </button>
+      </div>
+    </div>
+
+    <!-- ===== ESTADO: VOTOU NÃO ===== -->
+    <div class="state-card state-no" id="stateNo">
+      <div class="state-icon">
+        <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      </div>
+      <p class="state-title">Obrigado por participar!</p>
+      <p class="state-text">Sua opinião também é importante para o síndico tomar a melhor decisão para o condomínio. 🙏</p>
+    </div>
+
+    <!-- ===== SOCIAL PROOF ===== -->
+    <div class="social-proof">
+      <div class="proof-pill"><span class="proof-dot"></span>+3.000 condomínios</div>
+      <div class="proof-pill"><span class="proof-dot"></span>NPS 90</div>
+      <div class="proof-pill"><span class="proof-dot"></span>Desde 2016</div>
+      <div class="proof-pill"><span class="proof-dot"></span>WhatsApp nativo</div>
+    </div>
+
+    <div class="footer-brand">powered by <span>mycond</span></div>
+
+  </div><!-- /page-content -->
+</div><!-- /page-outer -->
+
+<!-- BOTÃO FLUTUANTE DE COMPARTILHAMENTO -->
+<button class="fab-share" id="fabShare" onclick="shareWhatsApp()" title="Compartilhar enquete">
+  <svg viewBox="0 0 24 24" fill="currentColor">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+    <path d="M11.998 2C6.477 2 2 6.484 2 12.017c0 1.867.487 3.686 1.414 5.297L2 22l4.796-1.396A9.953 9.953 0 0 0 12 22c5.522 0 10-4.477 10-10S17.52 2 11.998 2z"/>
+  </svg>
+  <span>Compartilhar</span>
+</button>
+
+
+<script>
+/* ============================================================
+   CONFIGURAÇÃO DOS PRODUTOS
+   Parâmetro URL: ?p=encomendas | reservas | myia | acesso | comunicacao
+============================================================ */
+const PRODUCTS = {
+  encomendas: {
+    icon: '📦', tag: 'Encomendas no condomínio',
+    // título usa __CONDO__ como placeholder, substituído em runtime pelo nome do condomínio
+    title: '__CONDO__pode ter uma forma mais rápida e segura de receber encomendas.',
+    sub: 'Você gostaria de ser avisado pelo WhatsApp sempre que uma encomenda chegar para você?',
+    poll: 'Você apoia essa melhoria no __CONDO__?',
+    supportBlock: 'Com a <strong>IA de Encomendas da MyCond</strong>, a portaria não precisa preencher tudo manualmente. O porteiro tira uma foto da etiqueta, a inteligência artificial identifica os dados da encomenda e o morador recebe o aviso pelo WhatsApp.',
+    btnYes: 'Sim, quero ser avisado por WhatsApp',
+    btnNo: 'Agora não, o condomínio não tem muitas encomendas',
+    benefits: [
+      'Aviso pelo <strong>WhatsApp assim que a encomenda chega</strong>',
+      '<strong>Menos demora na retirada</strong> e menos fila na portaria',
+      'Registro com <strong>foto da etiqueta</strong>, data, horário e unidade',
+      '<strong>Mais segurança</strong> contra perda, troca ou entrega errada',
+      'Retirada com <strong>confirmação por assinatura ou senha</strong>',
+    ],
+    videoId: '',
+    priceUnit: 'por unidade / mês',
+    priceDesc: 'menos que <strong>1 café</strong><br>por morador',
+  },
+  reservas: {
+    icon: '🏊', tag: 'Reserva de Áreas Comuns',
+    title: 'Reserve a piscina, o salão e a churrasqueira pelo celular',
+    sub: 'Chega de ligar para o síndico ou ficar esperando resposta no grupo. Todas as reservas em um só lugar, pelo WhatsApp.',
+    poll: 'Você quer poder reservar as áreas comuns pelo WhatsApp?',
+    benefits: [
+      'Reserve qualquer área comum pelo <strong>WhatsApp, 24 horas por dia</strong>',
+      'Agenda online visível a todos — <strong>sem conflito de horários</strong>',
+      'Regras e valores automáticos — <strong>sem precisar chamar o síndico</strong>',
+      'Confirmação e lembrete direto no seu celular',
+    ],
+    videoId: '', priceUnit: 'por unidade / mês', priceDesc: 'menos que <strong>1 café</strong><br>por morador',
+  },
+  myia: {
+    icon: '🤖', tag: 'MYIA — Atendimento com IA',
+    title: 'Uma IA disponível 24h no WhatsApp do condomínio',
+    sub: 'Resolveu 90% das dúvidas dos moradores sem precisar acionar ninguém. Reservas, ocorrências, boletos e encomendas — tudo pelo WhatsApp.',
+    poll: 'Você quer ter uma IA resolvendo suas dúvidas pelo WhatsApp, sem esperar o síndico?',
+    benefits: [
+      'Atendimento <strong>24 horas pelo WhatsApp</strong> — inclusive fins de semana e feriados',
+      'Faz reservas, registra ocorrências e envia boletos <strong>automaticamente</strong>',
+      '<strong>90% das demandas resolvidas sem intervenção humana</strong> (dado real MyCond)',
+      'Responde por texto ou áudio — <strong>qualquer morador consegue usar</strong>',
+    ],
+    videoId: '', priceUnit: 'por unidade / mês', priceDesc: 'menos que <strong>1 café</strong><br>por morador',
+  },
+  acesso: {
+    icon: '🔐', tag: 'Controle de Acesso Digital',
+    title: 'Mais segurança e autonomia no controle de acesso',
+    sub: 'Reconhecimento facial, QR Code e leitura de placa. Libere visitantes pelo celular, sem depender do porteiro.',
+    poll: 'Você quer ter mais controle e segurança no acesso do condomínio?',
+    benefits: [
+      '<strong>Reconhecimento facial</strong> para moradores e funcionários — acesso em segundos',
+      'Libere visitantes pelo celular — <strong>sem precisar do porteiro</strong>',
+      'Histórico completo de acessos com foto e horário',
+      '<strong>100% conforme LGPD</strong> — dados biométricos protegidos',
+    ],
+    videoId: '', priceUnit: 'por unidade / mês', priceDesc: 'investimento em <strong>segurança</strong><br>por morador',
+  },
+  comunicacao: {
+    icon: '📣', tag: 'Comunicação Digital',
+    title: 'Comunicação organizada entre síndico e moradores',
+    sub: 'Chega de grupos de WhatsApp caóticos. Comunicados, votações e assembleias em uma plataforma pensada para o condomínio.',
+    poll: 'Você quer receber os comunicados do condomínio de forma mais organizada?',
+    benefits: [
+      'Comunicados oficiais com <strong>confirmação de leitura</strong>',
+      '<strong>Assembleia virtual</strong> — vote sem sair de casa',
+      'Sem grupos de WhatsApp desorganizados — <strong>histórico preservado</strong>',
+      'Notificações segmentadas por bloco ou unidade',
+    ],
+    videoId: '', priceUnit: 'por unidade / mês', priceDesc: 'menos que <strong>1 café</strong><br>por morador',
+  },
+};
+
+/* ============================================================
+   ENDPOINT DO FORMULÁRIO
+   Substitua pela sua URL: Formspree, n8n, Make, Google Apps Script
+   Ex Formspree: 'https://formspree.io/f/xpwzqkna'
+   Ex n8n/Make:  'https://hook.eu1.make.com/...'
+============================================================ */
+const FORM_ENDPOINT = 'https://formspree.io/f/COLE_SEU_ID_AQUI';
+
+/* ============================================================
+   INICIALIZAÇÃO
+============================================================ */
+document.addEventListener('DOMContentLoaded', () => {
+  const params  = new URLSearchParams(window.location.search);
+  const condo   = params.get('c')      || params.get('condo')   || '';
+  const produto = params.get('p')      || params.get('produto') || 'encomendas';
+  const preco   = params.get('preco')  || params.get('v')       || null;
+  const yt      = params.get('yt')     || '';            // ID do YouTube
+
+  const prod = PRODUCTS[produto] || PRODUCTS.encomendas;
+  const pollKey = `${produto}_${condo.toLowerCase().replace(/\W+/g, '_')}`;
+  window._pollKey = pollKey;
+
+  // Hidden fields
+  document.getElementById('hCondo').value       = condo;
+  document.getElementById('hProduto').value     = produto;
+  document.getElementById('hUtmSource').value   = params.get('utm_source')   || '';
+  document.getElementById('hUtmMedium').value   = params.get('utm_medium')   || '';
+  document.getElementById('hUtmCampaign').value = params.get('utm_campaign') || '';
+
+  // Header / hero nome do condomínio
+  if (condo) {
+    document.getElementById('condoName').textContent     = condo;
+    document.getElementById('condoNameHero').textContent = condo;
+  } else {
+    document.getElementById('condoNameHero').style.display = 'none';
+  }
+
+  // Produto — substituir placeholder __CONDO__ pelo nome real
+  const condoLabel = condo ? condo + ' ' : 'Seu condomínio ';
+  const condoInline = condo ? '<strong>' + condo + '</strong> ' : 'Seu condomínio ';
+
+  document.getElementById('productIcon').textContent    = prod.icon;
+  document.getElementById('productTagText').textContent = prod.tag;
+  document.getElementById('heroTitle').innerHTML = (prod.title || '').replace('__CONDO__', condoInline);
+  document.getElementById('heroSub').textContent = prod.sub;
+
+  // Bloco de apoio (antes da enquete) — só se existir na config do produto
+  if (prod.supportBlock) {
+    const sb = document.getElementById('supportBlock');
+    sb.innerHTML = prod.supportBlock;
+    sb.parentElement.style.display = 'block';
+  }
+
+  // Pergunta e botões da enquete
+  const pollText = (prod.poll || prod.pollQuestion || '').replace('__CONDO__', condoLabel.trim());
+  document.getElementById('pollQuestion').innerHTML = pollText;
+  if (prod.btnYes) document.getElementById('btnYesLabel').textContent = prod.btnYes;
+  if (prod.btnNo)  document.getElementById('btnNoLabel').textContent  = prod.btnNo;
+
+  // Benefícios
+  const ul = document.getElementById('benefitsList');
+  prod.benefits.forEach(b => {
+    const li = document.createElement('li');
+    li.className = 'benefit-item';
+    li.innerHTML = `
+      <span class="benefit-check">
+        <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+      </span>
+      <span>${b}</span>`;
+    ul.appendChild(li);
+  });
+
+  // Vídeo — parâmetro ?yt= tem prioridade sobre o default do produto
+  const videoId = yt || prod.videoId;
+  const vw = document.getElementById('videoWrapper');
+  if (videoId) {
+    vw.innerHTML = `<iframe src="https://www.youtube.com/embed/${videoId}?rel=0&modestbranding=1"
+      allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>`;
+  } else {
+    vw.innerHTML = `
+      <div class="video-placeholder">
+        <div class="play-btn"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+        <p>Vídeo demonstrativo em breve</p>
+      </div>`;
+  }
+
+  // Preço — parâmetro ?preco= ou ?v= sobrescreve o padrão
+  if (preco) {
+    // Formatar: '099' → '0,99' | '199' → '1,99' | '0.99' → '0,99'
+    let formatted = String(preco).replace('.', ',');
+    document.getElementById('priceAmount').textContent = formatted;
+  }
+  document.getElementById('priceUnit').textContent  = prod.priceUnit;
+  document.getElementById('priceDesc').innerHTML    = prod.priceDesc;
+
+  // Restaurar estado se já votou nesta sessão
+  const previousVote = sessionStorage.getItem('mycond_voted_' + pollKey);
+  if (previousVote) applyVoteState(previousVote, pollKey, false);
+});
+
+/* ============================================================
+   VOTAR
+============================================================ */
+function vote(choice) {
+  const pollKey = window._pollKey;
+  if (sessionStorage.getItem('mycond_voted_' + pollKey)) return; // já votou
+  sessionStorage.setItem('mycond_voted_' + pollKey, choice);
+
+  // Incrementar no localStorage
+  let data = {};
+  try { data = JSON.parse(localStorage.getItem('mc_poll_' + pollKey) || '{}'); } catch {}
+  data.yes = (data.yes || 0) + (choice === 'yes' ? 1 : 0);
+  data.no  = (data.no  || 0) + (choice === 'no'  ? 1 : 0);
+  try { localStorage.setItem('mc_poll_' + pollKey, JSON.stringify(data)); } catch {}
+
+  applyVoteState(choice, pollKey, true);
+}
+
+function applyVoteState(choice, pollKey, animate) {
+  // Travar botões
+  document.querySelectorAll('.poll-btn').forEach(b => {
+    b.disabled = true;
+    b.style.cursor = 'default';
+    const isChosen = (choice === 'yes' && b.classList.contains('btn-yes')) ||
+                     (choice === 'no'  && b.classList.contains('btn-no'));
+    b.style.opacity = isChosen ? '1' : '0.35';
+  });
+
+  // Mostrar resultado
+  let data = {};
+  try { data = JSON.parse(localStorage.getItem('mc_poll_' + pollKey) || '{}'); } catch {}
+  const yes = data.yes || 0, no = data.no || 0, total = yes + no;
+  const pct = total > 0 ? Math.round((yes / total) * 100) : (choice === 'yes' ? 100 : 0);
+
+  const resultEl = document.getElementById('pollResult');
+  resultEl.classList.add('show');
+
+  if (animate) {
+    setTimeout(() => { document.getElementById('pollBar').style.width = pct + '%'; }, 80);
+  } else {
+    document.getElementById('pollBar').style.width = pct + '%';
+  }
+
+  document.getElementById('yesPct').textContent    = pct + '% apoiam ✓';
+  document.getElementById('totalVotes').textContent = total + (total === 1 ? ' voto' : ' votos');
+
+  // Mostrar seção correta
+  if (choice === 'yes') {
+    document.getElementById('formCard').classList.add('show');
+    if (animate) {
+      setTimeout(() => {
+        document.getElementById('formCard').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }, 300);
+    }
+  } else {
+    document.getElementById('stateNo').classList.add('show');
+  }
+}
+
+/* ============================================================
+   ENVIO DO FORMULÁRIO
+============================================================ */
+async function submitForm(e) {
+  e.preventDefault();
+  const btn = document.getElementById('submitBtn');
+  btn.disabled = true;
+  btn.innerHTML = '<span style="opacity:.6">Enviando...</span>';
+
+  try {
+    if (FORM_ENDPOINT.includes('COLE_SEU_ID_AQUI')) {
+      await new Promise(r => setTimeout(r, 700));
+      showThankYou();
+      return;
+    }
+    const res = await fetch(FORM_ENDPOINT, {
+      method: 'POST',
+      body: new FormData(document.getElementById('leadForm')),
+      headers: { 'Accept': 'application/json' },
+    });
+    if (res.ok) { showThankYou(); }
+    else { throw new Error(); }
+  } catch {
+    btn.disabled = false;
+    btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:17px;height:17px;stroke:#FDC600"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg> Tentar novamente`;
+    alert('Não conseguimos enviar. Tente novamente em instantes.');
+  }
+}
+
+function showThankYou() {
+  document.getElementById('formCard').style.display = 'none';
+  document.getElementById('stateThankYou').classList.add('show');
+  // Esconder FAB após confirmação (o botão de share já está no card)
+  const fab = document.getElementById('fabShare');
+  if (fab) fab.classList.add('hidden');
+  setTimeout(() => {
+    document.getElementById('stateThankYou').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 200);
+}
+
+/* ============================================================
+   COMPARTILHAR NO WHATSAPP
+   Preserva todos os parâmetros da URL atual no link compartilhado
+============================================================ */
+function shareWhatsApp() {
+  const params  = new URLSearchParams(window.location.search);
+  const condo   = params.get('c') || params.get('condo') || '';
+  const produto = params.get('p') || params.get('produto') || 'encomendas';
+  const preco   = params.get('preco') || params.get('v') || '';
+
+  // Rebuild URL limpa (sem utm_* para não poluir o link pessoal)
+  const shareParams = new URLSearchParams();
+  if (condo)   shareParams.set('c', condo);
+  if (produto && produto !== 'encomendas') shareParams.set('p', produto);
+  if (preco)   shareParams.set('preco', preco);
+  shareParams.set('utm_source', 'whatsapp');
+  shareParams.set('utm_medium', 'morador');
+
+  const shareUrl = window.location.origin + window.location.pathname + '?' + shareParams.toString();
+
+  const condoText = condo ? `o *${condo}*` : 'nosso condomínio';
+  const msg = `Oi! ${condoText} está consultando os moradores sobre uma melhoria nas encomendas — um sistema que avisa no WhatsApp quando o pacote chega. 📦\n\nVote aqui e ajude a mostrar para a gestão que os moradores querem essa melhoria:\n${shareUrl}`;
+
+  const waUrl = 'https://wa.me/?text=' + encodeURIComponent(msg);
+  window.open(waUrl, '_blank');
+}
+
+/* ============================================================
+   MÁSCARA TELEFONE
+============================================================ */
+function maskPhone(el) {
+  let v = el.value.replace(/\D/g, '').slice(0, 11);
+  if (v.length > 10) v = v.replace(/^(\d{2})(\d{5})(\d{4})$/, '($1) $2-$3');
+  else if (v.length > 6) v = v.replace(/^(\d{2})(\d{4})(\d*)$/, '($1) $2-$3');
+  else if (v.length > 2) v = v.replace(/^(\d{2})(\d*)$/, '($1) $2');
+  else if (v.length > 0) v = '(' + v;
+  el.value = v;
+}
+</script>
+
+</body>
+</html>
