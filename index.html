@@ -714,13 +714,13 @@ async function submitForm(e) {
       showThanks(true);
       return;
     }
-    const res = await fetch(FORM_ENDPOINT, {
-      method:'POST',
-      body: new FormData(document.getElementById('leadForm')),
-      headers:{'Accept':'application/json'},
-    });
-    if (res.ok) { showThanks(true); }
-    else { throw new Error(); }
+await fetch(FORM_ENDPOINT, {
+  method: 'POST',
+  mode: 'no-cors',
+  body: new FormData(document.getElementById('leadForm')),
+});
+
+showThanks(true);
   } catch {
     btn.disabled = false;
     btn.innerHTML = 'Tentar novamente';
