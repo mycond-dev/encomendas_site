@@ -633,6 +633,12 @@
       font-weight: 400;
     }
 
+    .row2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
     /* Badge mostrando qual voto está selecionado */
     .vote-badge {
       display: flex;
@@ -914,6 +920,10 @@
     }
 
     @media(max-width:400px) {
+      .row2 {
+        grid-template-columns: 1fr;
+      }
+
       .fab span {
         display: none;
       }
@@ -986,7 +996,7 @@
               <line x1="18" y1="6" x2="6" y2="18" />
               <line x1="6" y1="6" x2="18" y2="18" />
             </svg>
-            <span id="btnNoLbl">Agora não</span>
+            <span id="btnNoLbl">Não, não temos muitas encomendas</span>
           </button>
         </div>
       </div>
@@ -1002,8 +1012,8 @@
           </svg>
         </div>
         <div class="form-hdr-text">
-          <h3>Confirme sua participação</h3>
-          <p>Seus dados ficam registrados para que a gestão saiba quais moradores apoiam essa melhoria.</p>
+          <h3 id="formTitle">Confirme sua participação</h3>
+          <p id="formSubtitle">Informe seus dados para registrar sua resposta na consulta do condomínio.</p>
         </div>
       </div>
 
@@ -1026,6 +1036,16 @@
           <label class="fl" for="nome">Nome</label>
           <input class="fi" type="text" id="nome" name="nome" placeholder="Seu nome" required autocomplete="name" />
         </div>
+        <div class="row2">
+          <div class="fg">
+            <label class="fl" for="unidade">Unidade</label>
+            <input class="fi" type="text" id="unidade" name="unidade" placeholder="Ex: 302" required />
+          </div>
+          <div class="fg">
+            <label class="fl" for="bloco">Bloco</label>
+            <input class="fi" type="text" id="bloco" name="bloco" placeholder="Ex: B" />
+          </div>
+        </div>
         <div class="fg">
           <label class="fl" for="telefone">WhatsApp</label>
           <input class="fi" type="tel" id="telefone" name="telefone" placeholder="(00) 00000-0000" required
@@ -1037,9 +1057,9 @@
             <line x1="22" y1="2" x2="11" y2="13" />
             <polygon points="22 2 15 22 11 13 2 9 22 2" fill="currentColor" stroke="none" />
           </svg>
-          Confirmar minha participação
+          <span id="btnSubText">Confirmar meu voto</span>
         </button>
-        <p class="privacy">🔒 Dados usados apenas para esta consulta. Não compartilhamos com terceiros.</p>
+        <p class="privacy">🔒 Seus dados serão usados apenas para registrar esta consulta.</p>
       </form>
     </div>
 
@@ -1085,7 +1105,7 @@
           <div id="vidContainer"></div>
         </div>
 
-        <div class="price-card">
+        <div class="price-card" id="priceCard">
           <div>
             <div class="price-num">
               <span class="price-cur">R$</span>
@@ -1260,10 +1280,15 @@
       const videoId = yt || cfg.videoId || '';
       buildVideo(videoId);
 
-      // Preço
+      // Preço — esconde o card se valor > 2,99
       if (preco) document.getElementById('priceVal').textContent = String(preco).replace('.', ',');
       document.getElementById('priceUnit').textContent = cfg.priceUnit;
       document.getElementById('priceDesc').innerHTML = cfg.priceDesc;
+
+      const precoNum = parseFloat(String(preco).replace(',', '.'));
+      if (!isNaN(precoNum) && precoNum > 2.99) {
+        document.getElementById('priceCard').style.display = 'none';
+      }
 
       // Poll
       fetchRealPollResults();
@@ -1436,17 +1461,30 @@
       const badge = document.getElementById('voteBadge');
       const icon = document.getElementById('badgeIcon');
       const txt = document.getElementById('badgeText');
+      const formTitle = document.getElementById('formTitle');
+      const formSubtitle = document.getElementById('formSubtitle');
+      const btnSubText = document.getElementById('btnSubText');
 
       if (choice === 'yes') {
+        // SIM — copy de implementação/cadastro
         badge.className = 'vote-badge yes';
         icon.setAttribute('viewBox', '0 0 24 24');
         icon.innerHTML = '<polyline points="20 6 9 17 4 12"/>';
         txt.textContent = 'Você votou: Sim, quero ser avisado por WhatsApp';
+
+        formTitle.textContent = 'Quase pronto para receber suas encomendas pelo WhatsApp';
+        formSubtitle.textContent = 'Confirme seu nome, WhatsApp, unidade e bloco para registrar seu apoio e deixar sua unidade pronta caso o condomínio avance a tecnologia da IA de Encomendas.';
+        btnSubText.textContent = 'Confirmar e deixar meus dados';
       } else {
+        // NÃO — copy neutra de registro do voto
         badge.className = 'vote-badge no';
         icon.setAttribute('viewBox', '0 0 24 24');
         icon.innerHTML = '<line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>';
-        txt.textContent = 'Você votou: Não, não temos muitas encomendas';
+        txt.textContent = 'Você escolheu: Não, não temos muitas encomendas';
+
+        formTitle.textContent = 'Confirme seu voto';
+        formSubtitle.textContent = 'Informe seus dados para que a gestão consiga considerar sua resposta na consulta do condomínio.';
+        btnSubText.textContent = 'Confirmar meu voto';
       }
 
       const fc = document.getElementById('formCard');
@@ -1520,7 +1558,7 @@
       sp.set('utm_medium', 'morador');
 
       const url = window.location.origin + window.location.pathname + '?' + sp.toString();
-      const msg = `📦 *Encomenda chegou? Você pode ser avisado na hora pelo WhatsApp*.\n\nA gestão está consultando os moradores sobre uma solução da MyCond que deixa a entrega de encomendas mais rápida, segura e rastreável.\n\nVote e ajude a trazer essa melhoria para o condomínio:\n${url}`;
+      const msg = `📦 Encomenda chegou? Você pode ser avisado na hora pelo WhatsApp.\n\nA gestão está consultando os moradores sobre uma solução da MyCond que deixa a entrega de encomendas mais rápida, segura e rastreável.\n\nVote e ajude a trazer essa melhoria para o condomínio:\n${url}`;
 
       window.open('https://wa.me/?text=' + encodeURIComponent(msg), '_blank');
     }
