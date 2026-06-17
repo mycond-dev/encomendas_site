@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -11,7 +10,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap"
     rel="stylesheet" />
-
   <style>
     :root {
       --yellow: #FDC600;
@@ -37,7 +35,6 @@
       --s-md: 0 4px 16px rgba(27, 31, 54, .15);
       --t: 150ms ease;
     }
-
     *,
     *::before,
     *::after {
@@ -45,18 +42,15 @@
       margin: 0;
       padding: 0;
     }
-
     html {
       scroll-behavior: smooth;
     }
-
     body {
       font-family: var(--font);
       background: #ECEEF5;
       color: var(--navy);
       -webkit-font-smoothing: antialiased;
     }
-
     /* ── HEADER ── */
     .hdr {
       background: var(--navy);
@@ -69,26 +63,22 @@
       z-index: 100;
       box-shadow: 0 2px 16px rgba(0, 0, 0, .28);
     }
-
     .hdr-logo {
       display: flex;
       align-items: center;
       text-decoration: none;
     }
-
     .hdr-logo img {
       height: 30px;
       width: auto;
       display: block;
     }
-
     .hdr-sep {
       width: 1px;
       height: 22px;
       background: var(--navy-3);
       flex-shrink: 0;
     }
-
     .hdr-condo {
       font-size: 13px;
       font-weight: 600;
@@ -98,19 +88,16 @@
       white-space: nowrap;
       max-width: 100%;
     }
-
     .yellow-bar {
       height: 4px;
       background: var(--yellow);
     }
-
     /* ── LAYOUT ── */
     .wrap {
       max-width: 680px;
       margin: 0 auto;
       padding: 20px 16px 56px;
     }
-
     /* ── CARD ── */
     .card {
       background: var(--white);
@@ -119,7 +106,6 @@
       overflow: hidden;
       margin-bottom: 16px;
     }
-
     /* ── SEÇÃO ENQUETE (HERO) ── */
     .poll-hero {
       background: var(--white);
@@ -128,11 +114,9 @@
       overflow: hidden;
       margin-bottom: 20px;
     }
-
     .poll-hero-inner {
       padding: 24px 20px 20px;
     }
-
     .poll-tag {
       display: inline-flex;
       align-items: center;
@@ -147,7 +131,6 @@
       border-radius: var(--r-pill);
       margin-bottom: 14px;
     }
-
     .poll-condo-name {
       font-size: 11px;
       font-weight: 700;
@@ -157,7 +140,6 @@
       margin-bottom: 6px;
       display: none;
     }
-
     .poll-question {
       font-size: clamp(19px, 4vw, 26px);
       font-weight: 900;
@@ -165,7 +147,6 @@
       margin-bottom: 8px;
       color: var(--navy);
     }
-
     .poll-subtitle {
       font-size: 14px;
       font-weight: 500;
@@ -173,12 +154,10 @@
       line-height: 1.55;
       margin-bottom: 20px;
     }
-
     /* Resultado da enquete */
     .poll-result {
       margin-bottom: 18px;
     }
-
     .poll-bar-wrap {
       background: var(--gray-ll);
       border-radius: var(--r-pill);
@@ -186,7 +165,6 @@
       overflow: hidden;
       margin-bottom: 8px;
     }
-
     .poll-bar-yes {
       height: 100%;
       background: linear-gradient(90deg, var(--green), #34D399);
@@ -194,14 +172,12 @@
       width: 0%;
       transition: width .7s ease;
     }
-
     .poll-stats {
       display: flex;
       justify-content: space-between;
       font-size: 13px;
       font-weight: 600;
     }
-
     .stat-yes {
       color: var(--green);
       font-weight: 800;
@@ -209,7 +185,6 @@
       align-items: center;
       gap: 4px;
     }
-
     .stat-yes svg {
       width: 14px;
       height: 14px;
@@ -217,11 +192,9 @@
       fill: none;
       stroke-width: 2.5;
     }
-
     .stat-total {
       color: var(--gray);
     }
-
     /* Bloco de apoio */
     .support-blk {
       background: var(--yellow-bg);
@@ -234,18 +207,15 @@
       line-height: 1.55;
       margin-bottom: 18px;
     }
-
     .support-blk strong {
       font-weight: 700;
     }
-
     /* Botões de voto — SIM grande, NÃO discreto */
     .poll-btns {
       display: flex;
       flex-direction: column;
       gap: 10px;
     }
-
     .pbtn {
       border: 2px solid transparent;
       border-radius: var(--r-lg);
@@ -259,7 +229,6 @@
       line-height: 1.3;
       text-align: center;
     }
-
     .pbtn svg {
       width: 18px;
       height: 18px;
@@ -270,7 +239,6 @@
       stroke-linejoin: round;
       flex-shrink: 0;
     }
-
     /* SIM — grande e chamativo */
     .pbtn-yes {
       background: var(--green);
@@ -281,14 +249,12 @@
       font-weight: 800;
       box-shadow: 0 4px 18px rgba(34, 197, 94, .30);
     }
-
     .pbtn-yes:hover {
       background: var(--green-dark);
       border-color: var(--green-dark);
       transform: translateY(-2px);
       box-shadow: 0 6px 24px rgba(34, 197, 94, .40);
     }
-
     /* NÃO — pequeno e discreto */
     .pbtn-no {
       background: transparent;
@@ -298,12 +264,10 @@
       font-size: 12px;
       font-weight: 500;
     }
-
     .pbtn-no:hover {
       background: var(--gray-ll);
       color: var(--navy);
     }
-
     /* Estado selecionado */
     .pbtn-yes.selected {
       background: var(--green-dark);
@@ -311,19 +275,16 @@
       border-color: var(--green-dark);
       box-shadow: 0 4px 14px rgba(34, 197, 94, .3);
     }
-
     .pbtn-no.selected {
       background: var(--navy);
       color: var(--white);
       border-color: var(--navy);
       font-weight: 700;
     }
-
     .pbtn:disabled {
       cursor: not-allowed;
       opacity: .5;
     }
-
     /* ── BENEFÍCIOS ── */
     .sec-label {
       font-size: 11px;
@@ -336,7 +297,6 @@
       align-items: center;
       gap: 6px;
     }
-
     .sec-label::before {
       content: '';
       display: inline-block;
@@ -345,11 +305,9 @@
       background: var(--yellow);
       border-radius: 2px;
     }
-
     .benefits-card {
       padding: 20px;
     }
-
     .benefits {
       list-style: none;
       padding: 0;
@@ -357,7 +315,6 @@
       flex-direction: column;
       gap: 12px;
     }
-
     .benefit {
       display: flex;
       align-items: flex-start;
@@ -366,7 +323,6 @@
       font-weight: 500;
       line-height: 1.4;
     }
-
     .chk {
       flex-shrink: 0;
       width: 22px;
@@ -378,7 +334,6 @@
       justify-content: center;
       margin-top: 1px;
     }
-
     .chk svg {
       width: 12px;
       height: 12px;
@@ -386,7 +341,6 @@
       stroke-width: 3;
       fill: none;
     }
-
     /* ── PREÇO ── */
     .price-card {
       background: var(--navy);
@@ -399,33 +353,28 @@
       margin-bottom: 16px;
       box-shadow: var(--s-sm);
     }
-
     .price-num {
       display: flex;
       align-items: baseline;
       gap: 1px;
     }
-
     .price-cur {
       font-size: 15px;
       font-weight: 800;
       color: var(--yellow);
     }
-
     .price-val {
       font-size: 34px;
       font-weight: 900;
       color: var(--yellow);
       line-height: 1;
     }
-
     .price-unit {
       font-size: 11px;
       font-weight: 600;
       color: #7A8098;
       margin-top: 3px;
     }
-
     .price-desc {
       font-size: 12px;
       font-weight: 500;
@@ -433,17 +382,14 @@
       text-align: right;
       line-height: 1.4;
     }
-
     .price-desc strong {
       color: var(--yellow);
       font-weight: 700;
     }
-
     /* ── VÍDEO ── */
     .video-card {
       padding: 16px;
     }
-
     .vid-thumb {
       position: relative;
       width: 100%;
@@ -453,7 +399,6 @@
       background: var(--navy);
       cursor: pointer;
     }
-
     .vid-thumb img {
       position: absolute;
       top: 0;
@@ -463,7 +408,6 @@
       object-fit: cover;
       display: block;
     }
-
     .vid-thumb .play-overlay {
       position: absolute;
       top: 0;
@@ -478,11 +422,9 @@
       background: rgba(27, 31, 54, .45);
       transition: background var(--t);
     }
-
     .vid-thumb:hover .play-overlay {
       background: rgba(27, 31, 54, .30);
     }
-
     .play-btn-circle {
       width: 60px;
       height: 60px;
@@ -494,24 +436,20 @@
       box-shadow: 0 4px 20px rgba(253, 198, 0, .5);
       transition: transform var(--t);
     }
-
     .vid-thumb:hover .play-btn-circle {
       transform: scale(1.08);
     }
-
     .play-btn-circle svg {
       width: 22px;
       height: 22px;
       fill: var(--navy);
       margin-left: 4px;
     }
-
     .play-overlay p {
       font-size: 13px;
       font-weight: 600;
       color: var(--white);
     }
-
     .vid-wrap {
       position: relative;
       width: 100%;
@@ -519,7 +457,6 @@
       border-radius: var(--r-lg);
       overflow: hidden;
     }
-
     .vid-wrap iframe {
       position: absolute;
       top: 0;
@@ -528,37 +465,31 @@
       height: 100%;
       border: none;
     }
-
     /* ── FORMULÁRIO ── */
     .form-card {
       padding: 20px;
       display: none;
     }
-
     .form-card.show {
       display: block;
       animation: up .3s ease;
     }
-
     @keyframes up {
       from {
         opacity: 0;
         transform: translateY(10px)
       }
-
       to {
         opacity: 1;
         transform: translateY(0)
       }
     }
-
     .form-hdr {
       display: flex;
       align-items: center;
       gap: 10px;
       margin-bottom: 16px;
     }
-
     .form-ico {
       width: 38px;
       height: 38px;
@@ -569,7 +500,6 @@
       justify-content: center;
       flex-shrink: 0;
     }
-
     .form-ico svg {
       width: 18px;
       height: 18px;
@@ -579,13 +509,11 @@
       stroke-linecap: round;
       stroke-linejoin: round;
     }
-
     .form-hdr-text h3 {
       font-size: 14px;
       font-weight: 800;
       color: var(--navy);
     }
-
     .form-hdr-text p {
       font-size: 12px;
       font-weight: 500;
@@ -593,11 +521,9 @@
       margin-top: 2px;
       line-height: 1.4;
     }
-
     .fg {
       margin-bottom: 12px;
     }
-
     .fl {
       display: block;
       font-size: 11px;
@@ -607,7 +533,6 @@
       color: var(--gray);
       margin-bottom: 5px;
     }
-
     .fi {
       width: 100%;
       padding: 11px 13px;
@@ -622,23 +547,19 @@
       outline: none;
       -webkit-appearance: none;
     }
-
     .fi:focus {
       border-color: var(--yellow);
       box-shadow: 0 0 0 3px rgba(253, 198, 0, .15);
     }
-
     .fi::placeholder {
       color: var(--gray);
       font-weight: 400;
     }
-
     .row2 {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 10px;
     }
-
     /* Badge mostrando qual voto está selecionado */
     .vote-badge {
       display: flex;
@@ -652,17 +573,14 @@
       font-weight: 600;
       color: var(--gray);
     }
-
     .vote-badge.yes {
       background: var(--green-bg);
       color: var(--green-dark);
     }
-
     .vote-badge.no {
       background: #F1F5F9;
       color: var(--navy-2);
     }
-
     .vote-badge svg {
       width: 15px;
       height: 15px;
@@ -671,7 +589,6 @@
       stroke-width: 2.5;
       flex-shrink: 0;
     }
-
     .btn-sub {
       width: 100%;
       padding: 14px;
@@ -692,7 +609,6 @@
       gap: 8px;
       margin-top: 6px;
     }
-
     .btn-sub svg {
       width: 17px;
       height: 17px;
@@ -702,13 +618,11 @@
       stroke-linecap: round;
       stroke-linejoin: round;
     }
-
     .btn-sub:hover {
       background: var(--navy-2);
       transform: translateY(-1px);
       box-shadow: var(--s-md);
     }
-
     .privacy {
       font-size: 11px;
       color: var(--gray);
@@ -716,7 +630,6 @@
       margin-top: 10px;
       line-height: 1.5;
     }
-
     /* ── ESTADOS FINAIS ── */
     .state {
       border-radius: var(--r-xl);
@@ -726,16 +639,13 @@
       display: none;
       box-shadow: var(--s-sm);
     }
-
     .state.show {
       display: block;
       animation: up .4s ease;
     }
-
     .s-thanks {
       background: var(--navy);
     }
-
     .s-ico {
       width: 56px;
       height: 56px;
@@ -745,7 +655,6 @@
       justify-content: center;
       margin: 0 auto 14px;
     }
-
     .s-ico svg {
       width: 26px;
       height: 26px;
@@ -754,40 +663,32 @@
       stroke-linejoin: round;
       fill: none;
     }
-
     .s-thanks .s-ico {
       background: var(--yellow);
     }
-
     .s-thanks .s-ico svg {
       stroke: var(--navy);
     }
-
     .s-title {
       font-size: 19px;
       font-weight: 900;
       line-height: 1.2;
       margin-bottom: 8px;
     }
-
     .s-thanks .s-title {
       color: var(--white);
     }
-
     .s-thanks .s-title .em {
       color: var(--yellow);
     }
-
     .s-text {
       font-size: 14px;
       font-weight: 500;
       line-height: 1.55;
     }
-
     .s-thanks .s-text {
       color: #7A8098;
     }
-
     /* ── COMPARTILHAR ── */
     .share-area {
       margin-top: 18px;
@@ -798,13 +699,11 @@
       align-items: center;
       gap: 10px;
     }
-
     .share-label {
       font-size: 12px;
       font-weight: 600;
       color: #7A8098;
     }
-
     .btn-wa {
       display: inline-flex;
       align-items: center;
@@ -821,19 +720,16 @@
       transition: all var(--t);
       box-shadow: 0 3px 12px rgba(37, 211, 102, .35);
     }
-
     .btn-wa:hover {
       background: #1EBD5A;
       transform: translateY(-1px);
     }
-
     .btn-wa svg {
       width: 18px;
       height: 18px;
       fill: currentColor;
       flex-shrink: 0;
     }
-
     /* FAB */
     .fab {
       position: fixed;
@@ -855,22 +751,18 @@
       box-shadow: 0 4px 18px rgba(37, 211, 102, .45);
       transition: all var(--t);
     }
-
     .fab:hover {
       transform: translateY(-2px);
     }
-
     .fab svg {
       width: 20px;
       height: 20px;
       fill: currentColor;
       flex-shrink: 0;
     }
-
     .fab.hidden {
       display: none !important;
     }
-
     /* Proof + footer */
     .proof {
       display: flex;
@@ -879,7 +771,6 @@
       justify-content: center;
       margin: 4px 0 8px;
     }
-
     .proof-pill {
       display: inline-flex;
       align-items: center;
@@ -893,14 +784,12 @@
       color: var(--navy);
       box-shadow: var(--s-sm);
     }
-
     .dot {
       width: 6px;
       height: 6px;
       background: var(--yellow);
       border-radius: 50%;
     }
-
     .footer {
       text-align: center;
       padding: 6px;
@@ -908,26 +797,21 @@
       font-weight: 700;
       color: var(--gray);
     }
-
     .footer span {
       color: var(--navy);
     }
-
     @media(min-width:700px) {
       .wrap {
         max-width: 680px;
       }
     }
-
     @media(max-width:400px) {
       .row2 {
         grid-template-columns: 1fr;
       }
-
       .fab span {
         display: none;
       }
-
       .fab {
         padding: 13px;
         border-radius: 50%;
@@ -935,9 +819,7 @@
     }
   </style>
 </head>
-
 <body>
-
   <!-- HEADER -->
   <div class="hdr">
     <a href="https://mycond.com.br" target="_blank" class="hdr-logo">
@@ -948,10 +830,8 @@
     <span class="hdr-condo" id="condoName">Consulta aos Moradores</span>
   </div>
   <div class="yellow-bar"></div>
-
   <!-- CONTEÚDO -->
   <div class="wrap">
-
     <!-- ★ ENQUETE NO TOPO — HERO PRINCIPAL ★ -->
     <div class="poll-hero">
       <div class="poll-hero-inner">
@@ -959,11 +839,9 @@
           <span id="prodIcon">📦</span>
           <span id="prodTag">Encomendas no condomínio</span>
         </div>
-
         <p class="poll-condo-name" id="condoEyebrow"></p>
         <h1 class="poll-question" id="heroTitle"></h1>
         <p class="poll-subtitle" id="heroSub"></p>
-
         <!-- Resultado da enquete — prova social -->
         <div class="poll-result">
           <div class="poll-bar-wrap">
@@ -979,10 +857,8 @@
             <span class="stat-total" id="totalStat">Seja o primeiro a votar!</span>
           </div>
         </div>
-
         <!-- Bloco de apoio -->
         <div class="support-blk" id="supportBlk" style="display:none"></div>
-
         <!-- Botões de voto — SIM grande, NÃO discreto -->
         <div class="poll-btns" id="pollBtns">
           <button class="pbtn pbtn-yes" id="btnYesEl" onclick="selectVote('yes')">
@@ -1001,7 +877,6 @@
         </div>
       </div>
     </div>
-
     <!-- FORMULÁRIO — aparece para qualquer voto selecionado -->
     <div class="card form-card" id="formCard">
       <div class="form-hdr">
@@ -1016,13 +891,11 @@
           <p id="formSubtitle">Informe seus dados para registrar sua resposta na consulta do condomínio.</p>
         </div>
       </div>
-
       <!-- Badge mostrando o voto atual -->
       <div class="vote-badge" id="voteBadge">
         <svg viewBox="0 0 24 24" id="badgeIcon"></svg>
         <span id="badgeText"></span>
       </div>
-
       <form id="leadForm" onsubmit="submitForm(event)">
         <input type="hidden" name="condominio" id="hCondo" />
         <input type="hidden" name="produto" id="hProd" />
@@ -1031,7 +904,6 @@
         <input type="hidden" name="utm_source" id="hSrc" />
         <input type="hidden" name="utm_medium" id="hMed" />
         <input type="hidden" name="utm_campaign" id="hCamp" />
-
         <div class="fg">
           <label class="fl" for="nome">Nome</label>
           <input class="fi" type="text" id="nome" name="nome" placeholder="Seu nome" required autocomplete="name" />
@@ -1051,7 +923,6 @@
           <input class="fi" type="tel" id="telefone" name="telefone" placeholder="(00) 00000-0000" required
             autocomplete="tel" oninput="maskPhone(this)" />
         </div>
-
         <button class="btn-sub" type="submit" id="btnSub">
           <svg viewBox="0 0 24 24">
             <line x1="22" y1="2" x2="11" y2="13" />
@@ -1062,7 +933,6 @@
         <p class="privacy">🔒 Seus dados serão usados apenas para registrar esta consulta.</p>
       </form>
     </div>
-
     <!-- OBRIGADO -->
     <div class="state s-thanks" id="stThanks">
       <div class="s-ico">
@@ -1088,23 +958,19 @@
         </button>
       </div>
     </div>
-
     <!-- CONTEÚDO SECUNDÁRIO (benefícios + vídeo/preço) -->
     <div class="below-poll">
-
       <!-- BENEFÍCIOS -->
       <div class="card benefits-card">
         <p class="sec-label">Por que aprovar?</p>
         <ul class="benefits" id="benefitsList"></ul>
       </div>
-
       <!-- VÍDEO + PREÇO -->
       <div>
         <div class="card video-card">
           <p class="sec-label">Veja como funciona</p>
           <div id="vidContainer"></div>
         </div>
-
         <div class="price-card" id="priceCard">
           <div>
             <div class="price-num">
@@ -1116,18 +982,14 @@
           <div class="price-desc" id="priceDesc">menos que <strong>1 café</strong><br>por morador</div>
         </div>
       </div>
-
     </div>
-
     <div class="proof">
       <div class="proof-pill"><span class="dot"></span>+3.000 condomínios</div>
       <div class="proof-pill"><span class="dot"></span>NPS 90</div>
       <div class="proof-pill"><span class="dot"></span>WhatsApp nativo</div>
     </div>
     <div class="footer">powered by <span>mycond</span></div>
-
   </div>
-
   <!-- FAB -->
   <button class="fab" id="fab" onclick="shareWA()">
     <svg viewBox="0 0 24 24">
@@ -1138,7 +1000,6 @@
     </svg>
     <span>Compartilhar</span>
   </button>
-
   <script>
     /* ─────────────────────────────────────────────
        PRODUTOS — copy otimizada para conversão em SIM
@@ -1203,12 +1064,10 @@
         priceDesc: 'menos que <strong>1 café</strong><br>por morador',
       },
     };
-
     /* ─────────────────────────────────────────────
        ENDPOINT
     ─────────────────────────────────────────────── */
     const FORM_ENDPOINT = 'https://script.google.com/macros/s/AKfycby3OOLQSFDfF50kNDtMrb_x0q7Iz_ZNCqtMGYqk2YaRSkIpoA7oVC--5THjBKGlQHRgAg/exec';
-
     /* ─────────────────────────────────────────────
        INIT
     ─────────────────────────────────────────────── */
@@ -1220,17 +1079,14 @@
       const preco = p.get('preco') || p.get('v') || '';
       const yt = p.get('yt') || '';
       const logo = p.get('logo') || '';
-
       const cfg = PRODUCTS[prod] || PRODUCTS.encomendas;
       const pollKey = prod + '_' + (condo || 'geral').toLowerCase().replace(/\W+/g, '_');
       window._pollKey = pollKey;
       window._condo = condo;
       window._prod = prod;
       window._preco = preco;
-
       // Logo
       if (logo) document.getElementById('logoImg').src = logo;
-
       // Hidden fields
       document.getElementById('hCondo').value = condo;
       document.getElementById('hProd').value = prod;
@@ -1238,35 +1094,28 @@
       document.getElementById('hSrc').value = p.get('utm_source') || '';
       document.getElementById('hMed').value = p.get('utm_medium') || '';
       document.getElementById('hCamp').value = p.get('utm_campaign') || '';
-
       // Header e eyebrow
       if (condo) {
         document.getElementById('condoName').textContent = condo;
         document.getElementById('condoEyebrow').textContent = condo;
         document.getElementById('condoEyebrow').style.display = 'block';
       }
-
       // Conteúdo dinâmico
       const bold = condo ? '<strong>' + escHtml(condo) + '</strong>' : 'Seu condomínio';
       const plain = condo ? condo : 'seu condomínio';
-
       document.getElementById('prodIcon').textContent = cfg.icon;
       document.getElementById('prodTag').textContent = cfg.tag;
-
       // Título: usa versão com nome do condo se disponível
       const titleTemplate = condo && cfg.titleCondo ? cfg.titleCondo : cfg.title;
       document.getElementById('heroTitle').innerHTML = titleTemplate.replace('__CONDO__', bold);
-
       document.getElementById('heroSub').textContent = cfg.sub;
       document.getElementById('btnYesLbl').textContent = cfg.btnYes;
       document.getElementById('btnNoLbl').textContent = cfg.btnNo;
-
       if (cfg.support) {
         const el = document.getElementById('supportBlk');
         el.innerHTML = cfg.support;
         el.style.display = 'block';
       }
-
       // Benefícios
       const ul = document.getElementById('benefitsList');
       cfg.benefits.forEach(b => {
@@ -1275,32 +1124,26 @@
         li.innerHTML = `<span class="chk"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span><span>${b}</span>`;
         ul.appendChild(li);
       });
-
       // Vídeo
       const videoId = yt || cfg.videoId || '';
       buildVideo(videoId);
-
-      // Preço — esconde o card se valor > 2,99
-      if (preco) document.getElementById('priceVal').textContent = String(preco).replace('.', ',');
-      document.getElementById('priceUnit').textContent = cfg.priceUnit;
-      document.getElementById('priceDesc').innerHTML = cfg.priceDesc;
-
+      // Preço — esconde o card se não houver preco na URL OU se valor > 2,99
       const precoNum = parseFloat(String(preco).replace(',', '.'));
-      if (!isNaN(precoNum) && precoNum > 2.99) {
+      if (!preco || isNaN(precoNum) || precoNum > 2.99) {
         document.getElementById('priceCard').style.display = 'none';
+      } else {
+        document.getElementById('priceVal').textContent = String(preco).replace('.', ',');
+        document.getElementById('priceUnit').textContent = cfg.priceUnit;
+        document.getElementById('priceDesc').innerHTML = cfg.priceDesc;
       }
-
       // Poll
       fetchRealPollResults();
-
       // Restaurar estado se já enviou formulário
       if (sessionStorage.getItem('mc_done_' + pollKey)) showThanks(false);
     });
-
     function escHtml(s) {
       return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
     }
-
     function decodeParam(value) {
       try {
         return decodeURIComponent(value);
@@ -1308,13 +1151,11 @@
         return value;
       }
     }
-
     /* ─────────────────────────────────────────────
        VÍDEO
     ─────────────────────────────────────────────── */
     function buildVideo(videoId) {
       const container = document.getElementById('vidContainer');
-
       if (!videoId) {
         container.innerHTML = `
       <div style="position:relative;width:100%;padding-bottom:56.25%;border-radius:16px;overflow:hidden;background:#1B1F36;">
@@ -1327,10 +1168,8 @@
       </div>`;
         return;
       }
-
       const thumb = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
       const ytUrl = `https://www.youtube.com/watch?v=${videoId}`;
-
       container.innerHTML = `
     <div class="vid-thumb" onclick="loadVideo('${videoId}', this)" title="Clique para assistir">
       <img src="${thumb}" alt="Thumbnail do vídeo" loading="lazy" />
@@ -1345,18 +1184,15 @@
       Prefere abrir no YouTube? <a href="${ytUrl}" target="_blank" style="color:#FDC600;font-weight:700;text-decoration:none;">Assistir aqui ↗</a>
     </p>`;
     }
-
     function loadVideo(videoId, thumbEl) {
       const wrap = document.createElement('div');
       wrap.className = 'vid-wrap';
       wrap.innerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1&playsinline=1"
     allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
     style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;border-radius:16px;"></iframe>`;
-
       const parent = thumbEl.parentNode;
       parent.replaceChild(wrap, thumbEl);
     }
-
     /* ─────────────────────────────────────────────
        POLL
     ─────────────────────────────────────────────── */
@@ -1365,7 +1201,6 @@
       catch { return { yes: 0, no: 0 }; }
     }
     function savePoll(key, d) { try { localStorage.setItem('mc_p_' + key, JSON.stringify(d)); } catch { } }
-
     function renderPoll(key) {
       const d = getPoll(key);
       const total = d.yes + d.no;
@@ -1376,41 +1211,32 @@
         document.getElementById('totalStat').textContent = total + (total === 1 ? ' voto' : ' votos');
       }
     }
-
     function fetchRealPollResults() {
       const condominio = window._condo || '';
       if (!condominio) return;
-
       const callbackName = 'mycondPollCallback_' + Date.now();
       const script = document.createElement('script');
-
       window[callbackName] = function (data) {
         renderRealPoll(data);
         delete window[callbackName];
         script.remove();
       };
-
       script.onerror = function () {
         console.warn('Não foi possível buscar o resultado da enquete.');
         delete window[callbackName];
         script.remove();
       };
-
       script.src = FORM_ENDPOINT
         + '?action=resultado'
         + '&condominio=' + encodeURIComponent(condominio)
         + '&callback=' + callbackName
         + '&cache=' + Date.now();
-
       document.body.appendChild(script);
     }
-
     function renderRealPoll(data) {
       const total = Number(data.total || 0);
       const pct = Number(data.pctYes || 0);
-
       document.getElementById('pollBar').style.width = pct + '%';
-
       if (total > 0) {
         document.getElementById('yesPct').textContent = pct + '% apoiam';
         document.getElementById('totalStat').textContent = total + (total === 1 ? ' voto' : ' votos');
@@ -1419,34 +1245,25 @@
         document.getElementById('totalStat').textContent = 'Seja o primeiro a votar!';
       }
     }
-
     function renderOptimisticVote(voto) {
       const yesText = document.getElementById('yesPct').textContent || '';
       const totalText = document.getElementById('totalStat').textContent || '';
-
       let currentTotal = 0;
       let currentPct = 0;
-
       const totalMatch = totalText.match(/\d+/);
       if (totalMatch) currentTotal = Number(totalMatch[0]);
-
       const pctMatch = yesText.match(/\d+/);
       if (pctMatch) currentPct = Number(pctMatch[0]);
-
       let currentYes = currentTotal > 0
         ? Math.round((currentPct / 100) * currentTotal)
         : 0;
-
       if (voto === 'yes') currentYes += 1;
-
       const newTotal = currentTotal + 1;
       const newPct = newTotal > 0 ? Math.round((currentYes / newTotal) * 100) : 0;
-
       document.getElementById('pollBar').style.width = newPct + '%';
       document.getElementById('yesPct').textContent = newPct + '% apoiam';
       document.getElementById('totalStat').textContent = newTotal + (newTotal === 1 ? ' voto' : ' votos');
     }
-
     /* ─────────────────────────────────────────────
        SELEÇÃO DE VOTO
     ─────────────────────────────────────────────── */
@@ -1455,23 +1272,19 @@
       const btnN = document.getElementById('btnNoEl');
       btnY.classList.toggle('selected', choice === 'yes');
       btnN.classList.toggle('selected', choice === 'no');
-
       document.getElementById('hVoto').value = choice;
-
       const badge = document.getElementById('voteBadge');
       const icon = document.getElementById('badgeIcon');
       const txt = document.getElementById('badgeText');
       const formTitle = document.getElementById('formTitle');
       const formSubtitle = document.getElementById('formSubtitle');
       const btnSubText = document.getElementById('btnSubText');
-
       if (choice === 'yes') {
         // SIM — copy de implementação/cadastro
         badge.className = 'vote-badge yes';
         icon.setAttribute('viewBox', '0 0 24 24');
         icon.innerHTML = '<polyline points="20 6 9 17 4 12"/>';
         txt.textContent = 'Você votou: Sim, quero ser avisado por WhatsApp';
-
         formTitle.textContent = 'Quase pronto para receber suas encomendas pelo WhatsApp';
         formSubtitle.textContent = 'Confirme seu nome, WhatsApp, unidade e bloco para registrar seu apoio e deixar sua unidade pronta caso o condomínio avance a tecnologia da IA de Encomendas.';
         btnSubText.textContent = 'Confirmar e deixar meus dados';
@@ -1481,17 +1294,14 @@
         icon.setAttribute('viewBox', '0 0 24 24');
         icon.innerHTML = '<line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>';
         txt.textContent = 'Você escolheu: Não, não temos muitas encomendas';
-
         formTitle.textContent = 'Confirme seu voto';
         formSubtitle.textContent = 'Informe seus dados para que a gestão consiga considerar sua resposta na consulta do condomínio.';
         btnSubText.textContent = 'Confirmar meu voto';
       }
-
       const fc = document.getElementById('formCard');
       fc.classList.add('show');
       setTimeout(() => fc.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 250);
     }
-
     /* ─────────────────────────────────────────────
        ENVIO DO FORMULÁRIO
     ─────────────────────────────────────────────── */
@@ -1499,14 +1309,11 @@
       e.preventDefault();
       const voto = document.getElementById('hVoto').value;
       if (!voto) { alert('Selecione uma opção antes de confirmar.'); return; }
-
       const btn = document.getElementById('btnSub');
       btn.disabled = true;
       btn.innerHTML = '<span style="opacity:.6">Enviando...</span>';
-
       document.getElementById('btnYesEl').disabled = true;
       document.getElementById('btnNoEl').disabled = true;
-
       try {
         if (!FORM_ENDPOINT || FORM_ENDPOINT.includes('COLE_AQUI')) {
           await new Promise(r => setTimeout(r, 700));
@@ -1519,10 +1326,8 @@
           mode: 'no-cors',
           body: new FormData(document.getElementById('leadForm')),
         });
-
         renderOptimisticVote(voto);
         showThanks(true);
-
         setTimeout(() => {
           fetchRealPollResults();
         }, 2500);
@@ -1532,7 +1337,6 @@
         alert('Não conseguimos enviar. Tente novamente.');
       }
     }
-
     function showThanks(save) {
       if (save) sessionStorage.setItem('mc_done_' + window._pollKey, '1');
       document.getElementById('formCard').style.display = 'none';
@@ -1540,7 +1344,6 @@
       document.getElementById('fab').classList.add('hidden');
       setTimeout(() => document.getElementById('stThanks').scrollIntoView({ behavior: 'smooth', block: 'start' }), 200);
     }
-
     /* ─────────────────────────────────────────────
        COMPARTILHAR
     ─────────────────────────────────────────────── */
@@ -1549,20 +1352,16 @@
       const condo = p.get('c') || p.get('condo') || window._condo || '';
       const prod = p.get('p') || window._prod || 'encomendas';
       const preco = p.get('preco') || window._preco || '';
-
       const sp = new URLSearchParams();
       if (condo) sp.set('c', condo);
       if (prod !== 'encomendas') sp.set('p', prod);
       if (preco) sp.set('preco', preco);
       sp.set('utm_source', 'whatsapp');
       sp.set('utm_medium', 'morador');
-
       const url = window.location.origin + window.location.pathname + '?' + sp.toString();
       const msg = `📦 Encomenda chegou? Você pode ser avisado na hora pelo WhatsApp.\n\nA gestão está consultando os moradores sobre uma solução da MyCond que deixa a entrega de encomendas mais rápida, segura e rastreável.\n\nVote e ajude a trazer essa melhoria para o condomínio:\n${url}`;
-
       window.open('https://wa.me/?text=' + encodeURIComponent(msg), '_blank');
     }
-
     /* ─────────────────────────────────────────────
        MÁSCARA TELEFONE
     ─────────────────────────────────────────────── */
@@ -1575,7 +1374,5 @@
       el.value = v;
     }
   </script>
-
 </body>
-
 </html>
